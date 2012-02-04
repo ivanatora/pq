@@ -37,5 +37,15 @@ define('FOPEN_WRITE_CREATE_STRICT',				'xb');
 define('FOPEN_READ_WRITE_CREATE_STRICT',		'x+b');
 
 
+// Images
+define('THUMB_MAX_WIDTH', 300);
+define('THUMB_MAX_HEIGHT', 200);
+define('PREVIEW_MAX_WIDTH', 620);
+define('PREVIEW_MAX_HEIGHT', 450);
+
+// Gallery
+define('NUM_PICS_ROWS_PER_PAGE', 3);
+define('NUM_PICS_COLS_PER_PAGE', 2);
+
 /* End of file constants.php */
 /* Location: ./application/config/constants.php */

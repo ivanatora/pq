@@ -14,4 +14,12 @@ class Quest_model extends CI_Model {
         return $this->db->get($this->table)->first_row();
     }
     
+    public function get($id){
+        $this->db->from("quests q");
+        $this->db->join("quests_possible_topics qpt", "q.qpt_id = qpt.qpt_id");
+        $this->db->where("q.q_id", $id);
+        
+        return $this->db->get()->first_row();
+    }
+    
 }

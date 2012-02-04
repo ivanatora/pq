@@ -8,11 +8,11 @@ class MY_Controller extends CI_Controller {
         $this->load->model('member_model');
         
         $this->data = array();
-        $this->data['member_id'] = 0;
+        $this->data['iMemberId'] = 0;
         if ($this->session->userdata('member_id') != ''){
             $iMemberId = $this->session->userdata('member_id');
-            $this->data['member_id'] = $iMemberId;
-            $this->data['member'] = $this->member_model->get($iMemberId);
+            $this->data['iMemberId'] = $iMemberId;
+            $this->data['oMember'] = $this->member_model->get($iMemberId);
         }
     }
 }

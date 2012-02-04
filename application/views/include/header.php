@@ -18,7 +18,7 @@
         // setting some constants
 
         var iUserId = <?= $iMemberId; ?>;
-        var sUsername = '<? if ($iMemberId != 0) echo $member->u_username; ?>';
+        var sUsername = '<? if ($iMemberId != 0) echo $oMember->u_username; ?>';
     </script>
     <script type="text/javascript" src="/media/js/jquery-1.6.2.js"></script>
     <script type="text/javascript" src="/media/js/json2.js"></script>
@@ -38,7 +38,7 @@
             <ul>
                 <li><a href="/">Home</a></li>
                 <li>|<a href="/faq">FAQ</a></li>
-                <? if ($member_id == 0): ?>
+                <? if ($iMemberId == 0): ?>
                     <li>|<a href="/member/login">Login</a></li>
                     <li>|<a href="/member/register">Register</a></li>
                 <? else: ?>
@@ -56,8 +56,8 @@
                 , topic: "<?= $sTodayQuest;?>"
         </p>
         
-        <? if ($member_id != 0): ?>
-                <span id="greeting">Hello, <?= $member->u_username; ?></span>
+        <? if ($iMemberId != 0): ?>
+                <span id="greeting">Hello, <?= $oMember->u_username; ?></span>
         <? endif; ?>
         
         
