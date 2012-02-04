@@ -1,0 +1,128 @@
+
+#btnLogin {
+    float: right;
+}
+
+.formSubmit {
+    border: 1px solid #2A759F;
+    cursor: pointer;
+    display: block;
+    float: right;
+    font: 12px Arial,Helvetica,sans-serif;
+    height: 30px;
+    width: 78px;
+}
+
+.formCentered {
+    display: block;
+    height: 400px;
+    width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.formCentered input {
+}
+
+.register_warning_hidden {
+    visibility: hidden;
+}
+
+.register_warning_shown {
+    visibility: visible;
+    padding: 3px;
+    border: 1px solid red;
+    color: red;
+}
+
+.loginSuccessText {
+    display: none;
+    color: #444444;
+}
+
+#greeting {
+    color: white;
+    position: absolute;
+    top: 110px;
+    left: 630px;
+    width: 300px;
+}
+
+#infoQuest {
+    color: white;
+    position: absolute;
+    top: 170px;
+    left: 630px;
+    width: 300px;
+}
+
+#thanksForVoting {
+    display: none;
+}
+
+.thumb_container {
+    border: 1px solid #dedede;
+    padding: 5px;
+    margin: 5px;
+    float: left;
+    width: 310px;
+    height: 240px;
+    text-align: center;
+}
+
+.thumb_container .thumb_name {
+    margin-bottom: 2px;
+}
+
+.thumb_container .thumb_meta {
+    margin-top: 2px;
+}
+
+#page_bar {
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.link_gallery_page {
+    width: 30px;
+    height: 20px;
+    border: 1px solid black;
+    padding: 4px;
+    display: inline-block;
+    /*float: left;*/
+    text-align: center;
+    margin-right: 2px;
+    text-decoration: none;
+}
+
+.current_page {
+    background-color: #3476a8;
+    color: white;
+}
+
+#fldEnterComment {
+    width: 100%;
+}
+
+h3 {
+    border-bottom: 1px solid #cacaca;
+    margin-top: 10px;
+}
+
+#txtSettingsSaved {
+    display: none;
+    text-align: center;
+    font-weight: bold;
+}
+
+.hideIfNoTitle {
+    display: none;
+}
+
+#delete_photo img {
+    border: none;
+}
+
+.inactive {
+    display: none;
+}
