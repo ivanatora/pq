@@ -126,3 +126,7 @@ h3 {
 .inactive {
     display: none;
 }
+
+.noborder a{
+    border: 0px;
+}
