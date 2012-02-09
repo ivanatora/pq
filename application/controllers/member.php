@@ -31,6 +31,12 @@ class Member extends MY_Controller {
         $this->_display_login();
     }
     
+    protected function _display_login(){
+        $this->load->view('include/header', $this->data);
+        $this->load->view('member/login', $this->data);
+		$this->load->view('include/footer', $this->data);
+    }
+    
     public function register() {
         if ($this->input->post()){
             $sUsername = $this->input->post('username', true);
@@ -67,20 +73,37 @@ class Member extends MY_Controller {
         $this->_display_register();
     }
     
+    protected function _display_register() {
+        $this->load->view('include/header', $this->data);
+        $this->load->view('member/register', $this->data);
+		$this->load->view('include/footer', $this->data);
+    }
+    
     public function logout() {
         $this->session->unset_userdata('member_id');
         redirect(site_url());
     }
     
-    protected function _display_login(){
-        $this->load->view('include/header', $this->data);
-        $this->load->view('member/login', $this->data);
-		$this->load->view('include/footer', $this->data);
+    public function settings() {
+        $this->secure();
+        
+        if ($this->input->post()){
+            $aNewSettings = array();
+            foreach ($this->input->post() as $sKey => $sValue){
+                if ($sValue == 'on') $sValue = 1;
+                $aNewSettings[$sKey] = $sValue;
+            }
+            $this->member_model->saveSettings($aNewSettings, $this->member_id);
+            $this->data['success'] = true;
+            $this->data['oSettings'] = $this->member_model->getSettings($this->member_id);
+        }
+        
+        $this->_display_settings();
     }
     
-    protected function _display_register() {
+    protected function _display_settings() {
         $this->load->view('include/header', $this->data);
-        $this->load->view('member/register', $this->data);
+        $this->load->view('member/settings', $this->data);
 		$this->load->view('include/footer', $this->data);
     }
 }

@@ -34,4 +34,32 @@ class Member_model extends CI_Model {
         
         return $oResult;
     }
+    
+    public function getSettings($iUserId) {
+        $this->db->where('u_id', $iUserId);
+        $aRows = $this->db->get('settings')->result();
+        
+        $oResult = new stdClass;
+        foreach ($aRows as $oRow){
+            $sKey = $oRow->s_key;
+            $sValue = $oRow->s_value;
+            $oResult->$sKey = $sValue;
+        }
+        
+        return $oResult;
+    }
+    
+    public function saveSettings($aData, $iUserId){
+        $this->db->where('u_id', $iUserId);
+        $this->db->delete('settings');
+        
+        foreach ($aData as $sKey => $sValue){
+            $aInsertData = array(
+                's_key' => $sKey, 
+                's_value' => $sValue,
+                'u_id' => $iUserId
+            );
+            $this->db->insert('settings', $aInsertData);
+        }
+    }
 }

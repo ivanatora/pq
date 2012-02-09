@@ -9,8 +9,10 @@ class MY_Controller extends CI_Controller {
         $this->data['iMemberId'] = 0;
         if ($this->session->userdata('member_id') != ''){
             $iMemberId = $this->session->userdata('member_id');
+            $this->member_id = $iMemberId;
             $this->data['iMemberId'] = $iMemberId;
             $this->data['oMember'] = $this->member_model->get($iMemberId);
+            $this->data['oSettings'] = $this->member_model->getSettings($iMemberId);
         }
         
         // header stuff
@@ -35,6 +37,12 @@ class MY_Controller extends CI_Controller {
         $oTomorrowQuest = $this->quest_model->getQuestForDate($sTomorrowYmd);
         if (!empty($oTomorrowQuest)){
             $this->data['sTomorrowQuest'] = $oTomorrowQuest->qpt_topic;
+        }
+    }
+    
+    public function secure() {
+        if ($this->session->userdata('member_id') == ''){
+            redirect(site_url());
         }
     }
 }
