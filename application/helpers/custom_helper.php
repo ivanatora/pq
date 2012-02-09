@@ -14,6 +14,9 @@ function lm($str) {
     if (is_array($str)){
         $sOut .= print_r($str, true);
     }
+    elseif (is_object($str)){
+        $sOut .= print_r($str, true);
+    }
     else {
         $sOut .= ">> $str\n";
     }

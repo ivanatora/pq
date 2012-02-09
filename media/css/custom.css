@@ -15,13 +15,18 @@
 
 .formCentered {
     display: block;
-    height: 400px;
-    width: 500px;
+    width: 300px;
     margin-left: auto;
     margin-right: auto;
 }
 
-.formCentered input {
+.formCentered input[type=text],
+.formCentered input[type=password]{
+    width: 160px;
+    padding: 6px 5px;
+    font: 14px Arial, Helvetica, sans-serif;
+    color: #417b9d;
+    border: 1px solid #5B94B6;
 }
 
 .register_warning_hidden {
@@ -129,4 +134,24 @@ h3 {
 
 .noborder a{
     border: 0px;
+}
+
+.warning_message {
+    border: 1px solid red;
+    display: none;
+    padding: 10px;
+    width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+}
+
+.success_message {
+    border: 1px solid green;
+    display: none;
+    padding: 10px;
+    width: 250px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
 }
