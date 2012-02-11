@@ -7,6 +7,8 @@ class MY_Controller extends CI_Controller {
         
         $this->data = array();
         $this->data['iMemberId'] = 0;
+        $this->member_id = 0;
+        
         if ($this->session->userdata('member_id') != ''){
             $iMemberId = $this->session->userdata('member_id');
             $this->member_id = $iMemberId;
@@ -14,6 +16,18 @@ class MY_Controller extends CI_Controller {
             $this->data['oMember'] = $this->member_model->get($iMemberId);
             $this->data['oSettings'] = $this->member_model->getSettings($iMemberId);
         }
+        if ($this->input->post('hash')){
+            $oUser = $this->member_model->getByHash($this->input->post('hash'));
+            if (!empty($oUser)){
+                $this->data['iMemberId'] = $oUser->u_id;
+                $this->member_id = $oUser->u_id;
+                $this->data['oMember'] = $oUser;
+                $this->data['oSettings'] = $this->member_model->getSettings($oUser->u_id);
+                
+                //$this->member_model->destroyHash($this->member_id);
+            }
+        }
+        
         
         // header stuff
         $this->load->model('quest_model');
@@ -41,7 +55,7 @@ class MY_Controller extends CI_Controller {
     }
     
     public function secure() {
-        if ($this->session->userdata('member_id') == ''){
+        if ($this->member_id == 0){
             redirect(site_url());
         }
     }

@@ -13,6 +13,7 @@ class Gallery_model extends CI_Model {
         $this->db->select("COUNT(*) as cnt");
         $this->db->from("photos p");
         $this->db->join("users u", "p.u_id = u.u_id");
+        $this->db->where('p_active', 'Y');
         
         if ($iUserId){
             $this->db->where('u.u_id', $iUserId);
@@ -24,9 +25,10 @@ class Gallery_model extends CI_Model {
         $iCount = $this->db->get()->row('cnt');
         
         
-        $this->db->select("p_name, p_id, p_date, q_id, u_username, u.u_id");
+        $this->db->select("p.*, u_username, u.u_id");
         $this->db->from("photos p");
         $this->db->join("users u", "p.u_id = u.u_id");
+        $this->db->where('p_active', 'Y');
         
         if ($iUserId){
             $this->db->where('u.u_id', $iUserId);

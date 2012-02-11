@@ -62,4 +62,28 @@ class Member_model extends CI_Model {
             $this->db->insert('settings', $aInsertData);
         }
     }
+    
+    public function makeHash($iUserId){
+        $sHash = md5($iUserId . time());
+        $this->db->where('u_id', $iUserId);
+        $aData = array(
+            'u_hash' => $sHash
+        );
+        $this->db->update($this->table, $aData);
+        
+        return $sHash;
+    }
+    
+    public function getByHash($sHash){
+        $this->db->where('u_hash', $sHash);
+        $oResult = $this->db->get($this->table)->first_row();
+        
+        return $oResult;
+    }
+    
+    public function destroyHash($iUserId){
+        $this->db->where('u_id', $iUserId);
+        $aData = array('u_hash' => '');
+        $this->db->update($this->table, $aData);
+    }
 }
