@@ -32,13 +32,21 @@ class Submission extends MY_Controller {
                 'p_active' => 'Y'
             ));
             
-            redirect(site_url() . 'view/' . $sTitle);
+            redirect(site_url() . '/submission/view/' . $sTitle .'/' . $iSubmissionId);
         }
         
         $this->data['sUserhash'] = $this->member_model->makeHash($this->member_id);
         
         $this->load->view('include/header', $this->data);
         $this->load->view('submission/upload', $this->data);
+		$this->load->view('include/footer', $this->data);
+    }
+    
+    public function view($sTitle, $id){
+        $this->data['oPhoto'] = $this->submission_model->get($id);
+        
+        $this->load->view('include/header', $this->data);
+        $this->load->view('submission/view', $this->data);
 		$this->load->view('include/footer', $this->data);
     }
     

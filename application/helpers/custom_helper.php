@@ -1,6 +1,6 @@
 <?php  if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-function lm($str) {
+function lm($str, $var_dump = false) {
 
     $sShortDate = date('Y-m-d');
     $sFilename = "application/logs/$sShortDate";
@@ -11,14 +11,20 @@ function lm($str) {
     $sOut .= "FUNC: ". xdebug_call_function() . "\n";
     $sOut .= "POST: " . print_r($_POST, true) . "\n";
     $sOut .= "******************************************************** \n";
-    if (is_array($str)){
-        $sOut .= print_r($str, true);
-    }
-    elseif (is_object($str)){
-        $sOut .= print_r($str, true);
+    
+    if ($var_dump){
+        $sOut .= var_export($str, true);
     }
     else {
-        $sOut .= ">> $str\n";
+        if (is_array($str)){
+            $sOut .= print_r($str, true);
+        }
+        elseif (is_object($str)){
+            $sOut .= print_r($str, true);
+        }
+        else {
+            $sOut .= ">> $str\n";
+        }
     }
     //$sOut = print_r(debug_backtrace(), true);
     $aStack = xdebug_get_function_stack();

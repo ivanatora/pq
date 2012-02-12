@@ -17,8 +17,8 @@
     <? foreach ($aResults as $oItem): ?>
         <span class='thumb_container'>
             <div class='thumb_name'><?= $oItem->p_name;?></div>
-            <a href='/view/<?= $oItem->p_name;?>/<?= $oItem->p_id;?>'>
-                <img src="/photo/view/<?= $oItem->p_id?>/thumb" />
+            <a href='/submission/view/<?= $oItem->p_name;?>/<?= $oItem->p_id;?>'>
+                <img src="/media/storage/submissions/<?= $oItem->p_id?>/<?= $oItem->p_image;?>_thumb.jpg" />
             </a>
             <div class='thumb_meta'>
                 by <a href='/gallery/page/1/user/<?= $oItem->u_username;?>-<?= $oItem->u_id; ?>'><?= $oItem->u_username;?></a> | 
