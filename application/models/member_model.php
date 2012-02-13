@@ -49,6 +49,36 @@ class Member_model extends CI_Model {
         return $oResult;
     }
     
+    public function getSetting($iUserId, $sKey, $sDefault = ''){
+        $this->db->select('s_value');
+        $this->db->from('settings');
+        $this->db->where('u_id', $iUserId);
+        $this->db->where('s_key', $sKey);
+        
+        $oResult = $this->db->get()->first_row();
+        if (empty ($oResult)){
+            return $sDefault;
+        }
+        
+        return (empty($sResult)) ? $sDefault : $sResult;
+    }
+    
+    public function getUsersBySetting($sKey, $sValue){
+        $aUsers = array();
+        $this->db->select('s.u_id, u.*');
+        $this->db->from('settings s');
+        $this->db->join('users u', 'u.u_id = s.u_id');
+        $this->db->where('s_key', $sKey);
+        $this->db->where('s_value', $sValue);
+        
+        $aResult = $this->db->get();
+        foreach ($aResult as $oRow){
+            $aUsers[] = $oRow;
+        }
+        
+        return $aUsers;
+    }
+    
     public function saveSettings($aData, $iUserId){
         $this->db->where('u_id', $iUserId);
         $this->db->delete('settings');

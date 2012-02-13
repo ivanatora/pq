@@ -79,4 +79,17 @@ class Submission_model extends CI_Model {
         );
         $this->db->insert('comments', $aData);
     }
+    
+    public function getCommenters($id){
+        $aUserIds = array();
+        $this->db->select('DISTINCT u_id', false);
+        $this->db->from('comments');
+        $this->db->where('p_id', $id);
+        $aRes = $this->db->get()->result();
+        foreach ($aRes as $oRow){
+            $aUserIds[] = $oRow->u_id;
+        }
+        
+        return $aUserIds;
+    }
 }

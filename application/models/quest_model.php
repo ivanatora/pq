@@ -27,4 +27,31 @@ class Quest_model extends CI_Model {
         return $this->getQuestForDate($sDate);
     }
     
+    public function getPossibleTopicByLetter($c = ''){
+        $this->db->from('quests_possible_topics');
+        $aWhere = array(
+            'qpt_approved' => 'Y',
+            'qpt_date_selected' => '0000-00-00'
+        );
+        if (!empty($c)){
+            $aWhere['qpt_letter'] = $c;
+        }
+        $this->db->where($aWhere);
+        $this->db->order_by('qpt_id', 'RANDOM');
+        $this->db->limit(1);
+        
+        return $this->db->get()->first_row();
+    }
+    
+    public function select($id, $sDate){
+        $aData = array(
+            'q_date' => $sDate,
+            'qpt_id' => $id
+        );
+        $this->db->insert('quests', $aData);
+        
+        $this->db->where('qpt_id', $id);
+        $this->db->update('quests_possible_topics', array('qpt_date_selected' => $sDate));
+    }
+    
 }

@@ -32,6 +32,13 @@ class Submission extends MY_Controller {
                 'p_active' => 'Y'
             ));
             
+            // email notification
+            // @TODO: ?
+//            $aUsers = $this->member_model->getUsersBySetting('notify_new_topics', 1);
+//            foreach ($aUsers as $oUser){
+//                if ($oUser->u_id == $this->member_id) continue;
+//            }
+            
             redirect(site_url() . '/submission/view/' . $sTitle .'/' . $iSubmissionId);
         }
         
@@ -97,6 +104,31 @@ class Submission extends MY_Controller {
         $sComment = $this->input->post('comment');
         
         $this->submission_model->addComment($this->member_id, $id, $sComment);
+        
+        // email notification
+        $oSubmission = $this->submission_model->get($id);
+        $sMessage = $this->data['oMember']->u_username . " posted a comment on '" . 
+                $oSubmission->p_name . "' > " . $sComment;
+        $sSubject = 'New comment on PhotoQuest';
+        
+        $this->load->library('email');
+        
+        $aCommenters = $this->submission_model->getCommenters($id);
+        foreach ($aCommenters as $iCommenterId){
+            if ($iCommenterId == $this->member_id) continue;
+            
+            $bRecieveNotification = $this->member_model->getSetting(
+                    $iCommenterId, 'notify_new_comments', 0);
+            if ($bRecieveNotification){
+                $oReciever = $this->member_model->get($iCommenterId);
+                
+                $this->email->to($oReciever->u_mail);
+                $this->email->subject($sSubject);
+                $this->email->message($sMessage);
+                $this->email->send();
+                
+            }
+        }
         
         echo json_encode(array('success' => true));
         exit();
