@@ -13,10 +13,10 @@ $(document).ready(function(){
         for (var i = 1; i <= 5; i++){
             var sFindId = "star_" + i;
             if (i > iThisRating){
-                $("#" + sFindId).attr('src', '/images/star_empty.png');
+                $("#" + sFindId).attr('src', '/media/images/star_empty.png');
             }
             else {
-                $("#" + sFindId).attr('src', '/images/star_full.png');
+                $("#" + sFindId).attr('src', '/media/images/star_full.png');
             }
         }
     }, function(){
@@ -28,15 +28,15 @@ $(document).ready(function(){
         for (var i = 1; i <= 5; i++){
             var sFindId = "star_" + i;
             if (i < iHalfRating && i > iOriginalRating){
-                $("#" + sFindId).attr('src', '/images/star_half.png');
+                $("#" + sFindId).attr('src', '/media/images/star_half.png');
                 continue;
             }
             
             if (i > iOriginalRating){
-                $("#" + sFindId).attr('src', '/images/star_empty.png');
+                $("#" + sFindId).attr('src', '/media/images/star_empty.png');
             }
             else if (i < iOriginalRating + 1) {
-                $("#" + sFindId).attr('src', '/images/star_full.png');
+                $("#" + sFindId).attr('src', '/media/images/star_full.png');
             }
         }
     })
@@ -44,15 +44,11 @@ $(document).ready(function(){
     $(".star_rating").click(function(){
         var iThisRating = $(this).attr('id').replace(/^.+_/, '');
         $.ajax({
-            url: '/index.php',
+            url: '/submission/ajax_add_rating',
             type: 'POST',
             dataType: 'json',
             data: {
-                backend   : true,
-                type      : 'json',
-                module    : 'photo',
-                action    : 'doAddRating',
-                iPhotoId  : $("#original_photo_id").val(),
+                id        : $("#original_photo_id").val(),
                 rating    : iThisRating
             },
             success: function(res){
@@ -66,20 +62,17 @@ $(document).ready(function(){
     $("#btnPostComment").click(function(){
         var sComment = $("#fldEnterComment").val();
         $.ajax({
-            url: '/index.php',
+            url: '/submission/ajax_post_comment',
             type: 'POST',
             dataType: 'json',
             data: {
-                backend   : true,
-                type      : 'json',
-                module    : 'photo',
-                action    : 'doAddComment',
-                iPhotoId  : $("#original_photo_id").val(),
+                id        : $("#original_photo_id").val(),
                 comment   : sComment
             },
             success: function(res){
                 if (res.success){
                     addComment(sComment);
+                    $("#fldEnterComment").val('');
                 }
             }
         })

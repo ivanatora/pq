@@ -50,6 +50,58 @@ class Submission extends MY_Controller {
 		$this->load->view('include/footer', $this->data);
     }
     
+    public function ajax_add_rating() {
+        $this->secure();
+        
+        if (! $this->input->post()){
+            return;
+        }
+        
+        if ($this->member_id == 0){
+            return;
+        }
+        
+        $id = $this->input->post('id');
+        $iRating = $this->input->post('rating');
+        
+        // check if user can vote for that submission
+        $oSubmission = $this->submission_model->get($id);
+        if ($oSubmission->u_id == $this->member_id){
+            lm("The same user");
+            return;
+        }
+        
+        $aRatings = $this->submission_model->getRatings($id);
+        foreach ($aRatings as $oRating){
+            if ($oRating->u_id == $this->member_id) {
+                lm("User already voted");
+                return;
+            }
+        }
+        
+        // all clear?
+        $this->submission_model->addRating($this->member_id, $id, $iRating);
+        
+        echo json_encode(array('success' => true));
+        exit();
+    }
+    
+    public function ajax_post_comment() {
+        $this->secure();
+        
+        if (! $this->input->post()){
+            return;
+        }
+        
+        $id = $this->input->post('id');
+        $sComment = $this->input->post('comment');
+        
+        $this->submission_model->addComment($this->member_id, $id, $sComment);
+        
+        echo json_encode(array('success' => true));
+        exit();
+    }
+    
     
     public function ajax_file_upload() {
         $this->load->model('quest_model');

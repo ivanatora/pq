@@ -26,9 +26,9 @@ class Submission_model extends CI_Model {
         $this->db->from('comments c');
         $this->db->join('users u', 'c.u_id = u.u_id');
         $this->db->where('c.p_id', $oPhoto->p_id);
+        $this->db->order_by('c_date DESC');
         $oPhoto->aComments = $this->db->get()->result();
         
-        lm($oPhoto, true);
         return $oPhoto;
     }
     
@@ -51,5 +51,32 @@ class Submission_model extends CI_Model {
         }
         
         return $iNewId;
+    }
+    
+    public function getRatings($id){
+        $this->db->select('*');
+        $this->db->from('ratings');
+        $this->db->where('p_id', $id);
+        
+        return $this->db->get()->result();
+    }
+    
+    public function addRating($iUserId, $id, $iRating){
+        $aData = array(
+            'u_id' => $iUserId,
+            'p_id' => $id,
+            'r_rating' => $iRating
+        );
+        $this->db->insert('ratings', $aData);
+    }
+    
+    public function addComment($iUserId, $id, $sComment){
+        $aData = array(
+            'u_id' => $iUserId,
+            'p_id' => $id,
+            'c_date' => date("Y-m-d H:i:s"),
+            'c_text' => $sComment
+        );
+        $this->db->insert('comments', $aData);
     }
 }

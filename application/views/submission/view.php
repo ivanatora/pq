@@ -21,11 +21,11 @@
     <input type="hidden" id="original_poster" value="<?=$oPhoto->u_id;?>" />
     <input type="hidden" id="original_photo_id" value="<?=$oPhoto->p_id;?>" />
     
-    <img class="star_rating" id="star_1" src='/images/star_<? if ($oPhoto->r_rating_average < 0.5):?>empty<? elseif ($oPhoto->r_rating_average < 1):?>half<? else:?>full<? endif;?>.png' />
-    <img class="star_rating" id="star_2" src='/images/star_<? if ($oPhoto->r_rating_average < 1.5):?>empty<? elseif ($oPhoto->r_rating_average < 2):?>half<? else:?>full<? endif;?>.png' />
-    <img class="star_rating" id="star_3" src='/images/star_<? if ($oPhoto->r_rating_average < 2.5):?>empty<? elseif ($oPhoto->r_rating_average < 3):?>half<? else:?>full<? endif;?>.png' />
-    <img class="star_rating" id="star_4" src='/images/star_<? if ($oPhoto->r_rating_average < 3.5):?>empty<? elseif ($oPhoto->r_rating_average < 4):?>half<? else:?>full<? endif;?>.png' />
-    <img class="star_rating" id="star_5" src='/images/star_<? if ($oPhoto->r_rating_average < 4.5):?>empty<? elseif ($oPhoto->r_rating_average < 5):?>half<? else:?>full<? endif;?>.png' />
+    <img class="star_rating" id="star_1" src='/media/images/star_<? if ($oPhoto->r_rating_average < 0.5):?>empty<? elseif ($oPhoto->r_rating_average < 1):?>half<? else:?>full<? endif;?>.png' />
+    <img class="star_rating" id="star_2" src='/media/images/star_<? if ($oPhoto->r_rating_average < 1.5):?>empty<? elseif ($oPhoto->r_rating_average < 2):?>half<? else:?>full<? endif;?>.png' />
+    <img class="star_rating" id="star_3" src='/media/images/star_<? if ($oPhoto->r_rating_average < 2.5):?>empty<? elseif ($oPhoto->r_rating_average < 3):?>half<? else:?>full<? endif;?>.png' />
+    <img class="star_rating" id="star_4" src='/media/images/star_<? if ($oPhoto->r_rating_average < 3.5):?>empty<? elseif ($oPhoto->r_rating_average < 4):?>half<? else:?>full<? endif;?>.png' />
+    <img class="star_rating" id="star_5" src='/media/images/star_<? if ($oPhoto->r_rating_average < 4.5):?>empty<? elseif ($oPhoto->r_rating_average < 5):?>half<? else:?>full<? endif;?>.png' />
     <div id="thanksForVoting">Thanks for voting!</div>
     
     <br />
@@ -36,7 +36,7 @@
     <div id="comments">
         <? foreach ($oPhoto->aComments as $oComment) :?>
             <div class='comment'>
-                <?= date("d.m.Y H:M", strtotime($oComment->c_date));?> | <a href='#'><?=$oComment->u_username;?></a><br />
+                <?= date("d.m.Y H:i", strtotime($oComment->c_date));?> | <a href='#'><?=$oComment->u_username;?></a><br />
                 <?=$oComment->c_text;?>
             </div>
         <? endforeach;?>
