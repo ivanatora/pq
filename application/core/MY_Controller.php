@@ -56,7 +56,7 @@ class MY_Controller extends CI_Controller {
     
     public function secure() {
         if ($this->member_id == 0){
-            redirect(site_url());
+            redirect(site_url().'member/login');
         }
     }
 }

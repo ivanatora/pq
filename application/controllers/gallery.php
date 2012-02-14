@@ -16,7 +16,20 @@ class Gallery extends MY_Controller {
         
         $iLimit = NUM_PICS_ROWS_PER_PAGE * NUM_PICS_COLS_PER_PAGE;
         
-        $aResults = $this->gallery_model->getPage(0, 0, $iStart, $iLimit);
+        $aWhere = array();
+        if (preg_match('/quest-(\w+)-(\d+?)$/', $sType, $aMatches)){
+            $aWhere['q_id'] = $aMatches[2];
+            $this->data['sGalleryType'] = 'quest';
+            $this->data['sGalleryTitle'] = $aMatches[1];
+        }
+        if (preg_match('/user-(\w+)-(\d+?)$/', $sType, $aMatches)){
+            $aWhere['u.u_id'] = $aMatches[2];
+            $this->data['sGalleryType'] = 'user';
+            $this->data['sGalleryTitle'] = $aMatches[1];
+        }
+        
+        
+        $aResults = $this->gallery_model->getPage(0, 0, $iStart, $iLimit, $aWhere);
         
         foreach ($aResults['data'] as $iKey => $oRow){
             $oQuest = $this->quest_model->get($oRow->q_id);
@@ -49,6 +62,16 @@ class Gallery extends MY_Controller {
         
         $this->load->view('include/header', $this->data);
         $this->load->view('gallery/view', $this->data);
+		$this->load->view('include/footer', $this->data);
+    }
+    
+    public function quests() {
+        $sToday = date("Y-m-d");
+        $this->data['aQuests'] = $this->quest_model->getOlderThan($sToday);
+        lm($this->data['aQuests']);
+        
+        $this->load->view('include/header', $this->data);
+        $this->load->view('gallery/quests', $this->data);
 		$this->load->view('include/footer', $this->data);
     }
 }

@@ -106,6 +106,15 @@ class Member extends MY_Controller {
         $this->load->view('member/settings', $this->data);
 		$this->load->view('include/footer', $this->data);
     }
+    
+    public function list_all() {
+        $this->data['aUsers'] = $this->member_model->getAll();
+        lm($this->db->last_query());
+        
+        $this->load->view('include/header', $this->data);
+        $this->load->view('member/list_all', $this->data);
+		$this->load->view('include/footer', $this->data);
+    }
 }
 
 

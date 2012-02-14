@@ -54,4 +54,16 @@ class Quest_model extends CI_Model {
         $this->db->update('quests_possible_topics', array('qpt_date_selected' => $sDate));
     }
     
+    public function getOlderThan($sDate) {
+        $this->db->select('qpt.*, q.q_id, COUNT(p_id) as num_photos');
+        $this->db->from('quests q');
+        $this->db->join("quests_possible_topics qpt", 'q.qpt_id = qpt.qpt_id');
+        $this->db->join("photos p", 'p.q_id = q.q_id', 'left');
+        $this->db->where('q.q_date < ', $sDate);
+        $this->db->group_by('qpt_id');
+        $this->db->order_by('q.q_date DESC');
+        
+        return $this->db->get()->result();
+    }
+    
 }

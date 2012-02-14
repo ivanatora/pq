@@ -2,8 +2,8 @@
             <h2>Menu</h2>
             <ul>
                 <li><a href="/submission/upload">Upload</a></li>
-                <li><a href="/do/quest/viewPreviousQuests">Previous quests</a></li>
-                <li><a href="/do/user/viewListAllUsers">All users</a></li>
+                <li><a href="/gallery/quests">Previous quests</a></li>
+                <li><a href="/member/list_all">All users</a></li>
             </ul>
 
             <!--

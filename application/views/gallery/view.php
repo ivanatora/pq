@@ -1,13 +1,11 @@
 <div id="content">
     <div class="clearing">&nbsp;</div>
     
+    <? if(isset($sGalleryType)): ?>
+        <h2>From <?= $sGalleryType;?>: <?= $sGalleryTitle;?></h2>
+    <? endif;?>
+    
     <div id="page_bar">
-        <!--
-        Page:
-    {section name=i loop=$aPages}
-        <a href='/gallery/page/{$aPages[i]}{$sPageSuffix}' class='link_gallery_page{if $aPages[i] == $iCurrentPage} current_page{/if}'>{$aPages[i]}</a>
-    {/section}
-        -->
         <?= $this->pagination->create_links(); ?>
     </div>
     

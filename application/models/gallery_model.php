@@ -9,7 +9,7 @@ class Gallery_model extends CI_Model {
         return $this->db->get()->first_row();
     }
     
-    public function getPage($iUserId = 0, $iQuestId = 0, $iStart = 0, $iLimit = 10){
+    public function getPage($iUserId = 0, $iQuestId = 0, $iStart = 0, $iLimit = 10, $aWhere = array()){
         $this->db->select("COUNT(*) as cnt");
         $this->db->from("photos p");
         $this->db->join("users u", "p.u_id = u.u_id");
@@ -20,6 +20,10 @@ class Gallery_model extends CI_Model {
         }
         if ($iQuestId){
             $this->db->where('p.q_id', $iQuestId);
+        }
+        
+        if (!empty($aWhere)){
+            $this->db->where($aWhere);
         }
         
         $iCount = $this->db->get()->row('cnt');
@@ -36,6 +40,10 @@ class Gallery_model extends CI_Model {
         if ($iQuestId){
             $this->db->where('p.q_id', $iQuestId);
         }
+        if (!empty($aWhere)){
+            $this->db->where($aWhere);
+        }
+        
         $this->db->order_by('p_date', 'desc');
         $this->db->limit($iLimit, $iStart);
         $aResults = $this->db->get()->result();

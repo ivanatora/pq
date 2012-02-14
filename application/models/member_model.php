@@ -116,4 +116,13 @@ class Member_model extends CI_Model {
         $aData = array('u_hash' => '');
         $this->db->update($this->table, $aData);
     }
+    
+    public function getAll(){
+        $this->db->select('u.*, COUNT(p_name) as num_photos');
+        $this->db->from('users u');
+        $this->db->join('photos p', 'p.u_id = u.u_id', 'left');
+        $this->db->group_by('u.u_id');
+        
+        return $this->db->get()->result();
+    }
 }

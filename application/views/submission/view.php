@@ -7,7 +7,7 @@
         <a href='/gallery/page/1/quest/<?=$oPhoto->qpt_topic;?>/<?=$oPhoto->q_id;?>'><i><?=$oPhoto->qpt_topic;?></i></a> |
         <?= date("d.m.Y", strtotime($oPhoto->p_date)); ?>
         <? if (isset ($iMemberId) && $oPhoto->u_id == $iMemberId): ?>
-            <a href='#' id='delete_photo' photo_id='<?=$oPhoto.p_id;?>'>
+            <a href='#' id='delete_photo' photo_id='<?=$oPhoto->p_id;?>'>
                 <img src='/images/delete-16.png' />
             </a>
         <? endif;?>
