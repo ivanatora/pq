@@ -19,9 +19,9 @@
                 <img src="/media/storage/submissions/<?= $oItem->p_id?>/<?= $oItem->p_image;?>_thumb.jpg" />
             </a>
             <div class='thumb_meta'>
-                by <a href='/gallery/page/1/user/<?= $oItem->u_username;?>-<?= $oItem->u_id; ?>'><?= $oItem->u_username;?></a> | 
+                by <a href='/gallery/view/user-<?= $oItem->u_username;?>-<?= $oItem->u_id; ?>'><?= $oItem->u_username;?></a> | 
                 <?= date("d.m.Y", strtotime($oItem->p_date));?> @ 
-                <a href='/gallery/page/1/quest/<?= $oItem->qpt_topic;?>-<?= $oItem->q_id;?>'><?= $oItem->qpt_topic;?></a>
+                <a href='/gallery/view/quest-<?= $oItem->qpt_topic;?>-<?= $oItem->q_id;?>'><?= $oItem->qpt_topic;?></a>
             </div>
         </span>
     <? endforeach; ?>
