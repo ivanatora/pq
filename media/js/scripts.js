@@ -178,14 +178,10 @@ $(document).ready(function(){
         e.preventDefault();
         if(confirm("Photo will be deleted forever?")){
             $.ajax({
-                url: '/index.php',
+                url: '/submission/delete',
                 type: 'POST',
                 dataType: 'json',
                 data: {
-                    backend     : true,
-                    type        : 'json',
-                    module      : 'photo',
-                    action      : 'delete',
                     id          : $(this).attr('photo_id')
                 },
                 success: function(res){

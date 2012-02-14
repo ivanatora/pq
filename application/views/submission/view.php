@@ -19,7 +19,7 @@ $(document).ready(function(){
         <?= date("d.m.Y", strtotime($oPhoto->p_date)); ?>
         <? if (isset ($iMemberId) && $oPhoto->u_id == $iMemberId): ?>
             <a href='#' id='delete_photo' photo_id='<?=$oPhoto->p_id;?>'>
-                <img src='/images/delete-16.png' />
+                <img src='/media/images/delete-16.png' />
             </a>
         <? endif;?>
     </p>

@@ -37,6 +37,11 @@ class Submission_model extends CI_Model {
         $this->db->update($this->table, $aData);
     }
     
+    public function delete($id) {
+        $this->db->where('p_id', $id);
+        $this->db->delete($this->table);
+    }
+    
     public function getSeqId() {
         $this->db->select('id');
         $this->db->from('photos_seq');
@@ -98,6 +103,7 @@ class Submission_model extends CI_Model {
         $this->db->from('photos');
         $this->db->where('u_id', $iUserid);
         $this->db->where('DATE(p_date)', $sDate);
+        $this->db->where('p_active', 'Y');
         
         return $this->db->get()->first_row();
     }

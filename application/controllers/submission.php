@@ -48,7 +48,7 @@ class Submission extends MY_Controller {
 //                if ($oUser->u_id == $this->member_id) continue;
 //            }
             
-            redirect(site_url() . '/submission/view/' . $sTitle .'/' . $iSubmissionId);
+            redirect(site_url() . 'submission/view/' . $sTitle .'/' . $iSubmissionId);
         }
         
         $this->data['sUserhash'] = $this->member_model->makeHash($this->member_id);
@@ -226,6 +226,19 @@ class Submission extends MY_Controller {
         }
     }
     
+    public function delete(){
+        $this->secure();
+        
+        if ($this->input->post()){
+            $id = $this->input->post('id');
+            $oSubmission = $this->submission_model->get($id);
+            if ($oSubmission->u_id == $this->member_id) {
+                $this->submission_model->delete($id);
+                echo json_encode(array('success' => true));
+                exit();
+            }
+        }
+    }
     
 }
 
