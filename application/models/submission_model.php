@@ -92,4 +92,13 @@ class Submission_model extends CI_Model {
         
         return $aUserIds;
     }
+    
+    public function getByUserAndDate($iUserid, $sDate){
+        $this->db->select('p_id');
+        $this->db->from('photos');
+        $this->db->where('u_id', $iUserid);
+        $this->db->where('DATE(p_date)', $sDate);
+        
+        return $this->db->get()->first_row();
+    }
 }

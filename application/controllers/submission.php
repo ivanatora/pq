@@ -13,6 +13,15 @@ class Submission extends MY_Controller {
     public function upload() {
         $this->secure();
         
+        // only one upload per day
+        $sToday = date("Y-m-d");
+        $oPhoto = $this->submission_model->getByUserAndDate($this->member_id, $sToday);
+        if (! empty($oPhoto)){
+            $this->data['error'] = 'Only one submission per day is allowed';
+            $this->view('title', $oPhoto->p_id);
+            return;
+        }
+        
         if ($this->input->post()){
             $sTitle = $this->input->post('title');
             // sanitize title:

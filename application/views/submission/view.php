@@ -1,6 +1,17 @@
+<script type="text/javascript">
+$(document).ready(function(){
+    <? if (isset($error)): ?>
+            $('.warning_message').html('<?=$error;?>');
+            $('.warning_message').fadeIn();
+    <? endif; ?>
+})
+</script>
+
 <div id="content">
     <div class="post">
 
+    <div class="warning_message"></div>
+    
     <h2><?=$oPhoto->p_name;?></h2>
     <p class="postmeta">
         Posted by <a href='/gallery/page/1/user/<?= $oPhoto->u_username;?>/<?=$oPhoto->u_id;?>'><?=$oPhoto->u_username;?></a> | 
