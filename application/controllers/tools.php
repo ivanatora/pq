@@ -11,9 +11,7 @@ class Tools extends MY_Controller {
         }
     }
     
-	public function index() {
-        print "Disabled for now\n";
-        exit();
+	public function extract_photos() {
         $aRes = $this->db->query("SELECT * FROM photos WHERE p_active = 'N'", false)->result();
         
         foreach ($aRes as $oRow){
