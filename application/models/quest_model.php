@@ -66,4 +66,13 @@ class Quest_model extends CI_Model {
         return $this->db->get()->result();
     }
     
+    public function suggest($sTopic){
+        $c = $sTopic[0];
+        $aData = array(
+            'qpt_topic' => $sTopic,
+            'qpt_letter' => $c
+        );
+        $this->db->insert('quests_possible_topics', $aData);
+    }
+    
 }

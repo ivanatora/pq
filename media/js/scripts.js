@@ -109,14 +109,10 @@ $(document).ready(function(){
         var sVal = $("#fldSuggestText").val();
         if (! sVal.match(/\s/)){
             $.ajax({
-                url: '/index.php',
+                url: '/quest/ajax_suggest',
                 type: 'POST',
                 dataType: 'json',
                 data: {
-                    backend   : true,
-                    type      : 'json',
-                    module    : 'quest',
-                    action    : 'doSuggestTopic',
                     topic     : sVal
                 },
                 success: function(res){
@@ -145,34 +141,6 @@ $(document).ready(function(){
         }
     })
     
-    $("#btnSaveSettings").click(function(evn){
-        var aInputEls = $('#formSettings :input[type=checkbox]')
-        var aValues = {};
-        aInputEls.each(function(){
-            aValues[this.name] = $(this).is(':checked');
-        })
-        
-        
-        $.ajax({
-            url: '/index.php',
-            type: 'POST',
-            dataType: 'json',
-            data: {
-                backend   : true,
-                type      : 'json',
-                module    : 'settings',
-                action    : 'saveSettings',
-                data      : JSON.stringify(aValues)
-            },
-            success: function(res){
-                if (res.success){
-                    $("#txtSettingsSaved").fadeIn().delay(2000).fadeOut();
-                }
-            }
-        })
-        
-        evn.preventDefault();
-    })
     
     $("#delete_photo").click(function(e){
         e.preventDefault();

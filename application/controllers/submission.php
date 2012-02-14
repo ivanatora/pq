@@ -131,6 +131,7 @@ class Submission extends MY_Controller {
             if ($bRecieveNotification){
                 $oReciever = $this->member_model->get($iCommenterId);
                 
+                $this->email->from('pq@dev.ivanatora.info');
                 $this->email->to($oReciever->u_mail);
                 $this->email->subject($sSubject);
                 $this->email->message($sMessage);

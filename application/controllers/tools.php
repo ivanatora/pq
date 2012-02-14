@@ -106,6 +106,7 @@ class Tools extends MY_Controller {
         
         $aUsers = $this->member_model->getUsersBySetting('notify_new_topics', 1);
         foreach ($aUsers as $oReciever){
+            $this->email->from('pq@dev.ivanatora.info');
             $this->email->to($oReciever->u_mail);
             $this->email->subject($sSubject);
             $this->email->message($sMessage);
