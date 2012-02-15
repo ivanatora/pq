@@ -241,6 +241,39 @@ class Submission extends MY_Controller {
         }
     }
     
+    public function ajax_rotate_photo() {
+        $this->secure();
+        
+        if ($this->input->post()){
+            $id = (int) $this->input->post('id');
+            $oSubmission = $this->submission_model->get($id);
+            if ($oSubmission->u_id == $this->member_id) {
+                $iDegrees = 0;
+                switch($this->input->post('dir')){
+                    case 'CW': $iDegrees = 270; break;
+                    case 'CCW': $iDegrees = 90; break;
+                    default: $iDegrees = 90; break;
+                }
+                
+                $sFileLocation = getcwd() . '/media/storage/submissions/' . 
+                        $id . '/' . $oSubmission->p_image . '.jpg';
+                
+                $aConfig = array(
+                    'rotation_angle' => $iDegrees,
+                    'source_image' => $sFileLocation
+                );
+                $this->image_lib->initialize($aConfig);
+                $this->image_lib->rotate();
+                
+                $this->_resize_img($sFileLocation, THUMB_MAX_WIDTH, THUMB_MAX_HEIGHT, '_thumb');
+                $this->_resize_img($sFileLocation, PREVIEW_MAX_WIDTH, PREVIEW_MAX_HEIGHT, '_preview');
+                
+                echo json_encode(array('success' => true));
+                exit();
+            }
+        }
+    }
+    
 }
 
 

@@ -71,7 +71,7 @@ class Member_model extends CI_Model {
         $this->db->where('s_key', $sKey);
         $this->db->where('s_value', $sValue);
         
-        $aResult = $this->db->get();
+        $aResult = $this->db->get()->result();
         foreach ($aResult as $oRow){
             $aUsers[] = $oRow;
         }

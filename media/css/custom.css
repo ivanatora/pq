@@ -21,6 +21,10 @@
     margin-right: auto;
 }
 
+.formUpload {
+    width: 250px;
+}
+
 .formCentered input[type=text],
 .formCentered input[type=password]{
     width: 160px;
@@ -160,4 +164,20 @@ h3 {
 #previewImage {
     margin-bottom: 20px;
     margin-top: 10px;
+}
+
+#btnRotateCW {
+    background: url('../images/sub_black_rotate_cw.png') no-repeat;
+    height: 32px;
+    width: 32px;
+    border: 0px;
+    display: none;
+}
+
+#btnRotateCCW {
+    background: url('../images/sub_black_rotate_ccw.png') no-repeat;
+    height: 32px;
+    width: 32px;
+    border: 0px;
+    display: none;
 }

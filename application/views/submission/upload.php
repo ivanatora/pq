@@ -23,18 +23,46 @@
                     "/" + response.filename + "_thumb.jpg' />");
                 
                 $(".formCentered input[type=submit]").show()
+                $(".formCentered input[type=button]").show()
             },
             'onError': function(event, ID, fileObj, errorObj){
                 lm("error:")
                 lm(errorObj)
             }
         });
+        
+        $('#btnRotateCW').click(function(e){
+            fnRotatePhoto(e, 'CW');
+        })
+        
+        $('#btnRotateCCW').click(function(e){
+            fnRotatePhoto(e, 'CCW');
+        })
+        
+        var fnRotatePhoto = function(e, dir){
+            e.preventDefault();
+            $.ajax({
+                url: '/submission/ajax_rotate_photo',
+                type: 'POST',
+                dataType: 'json',
+                data: {
+                    id        : $(".formCentered input[type=hidden]").val(),
+                    dir       : dir
+                },
+                success: function(res){
+                    d = new Date();
+                    var sOldSrc = $("#previewImage img").attr('src');
+                    $("#previewImage img").attr("src", sOldSrc + "?"+d.getTime());
+
+                }
+            })
+        }
     });
     // ]]>
 </script>
 
-<form class="formCentered" action="" method="post" enctype="multipart/form-data">
-    <input type="hidden" name="submission_id" value="0" />
+<form class="formCentered formUpload" action="" method="post" enctype="multipart/form-data">
+    <input type="hidden" id="submission_id" name="submission_id" value="0" />
 
     <table>
         <tr>
@@ -55,5 +83,7 @@
     Max filesize: 10MB
 
     <div id="previewImage"></div>
+    <input type="button" id="btnRotateCCW"  />
+    <input type="button" id="btnRotateCW" />
     <input type="submit" value="Send" style="display: none;"/>
 </form>
