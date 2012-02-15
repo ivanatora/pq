@@ -35,6 +35,7 @@ class Gallery extends MY_Controller {
             $oQuest = $this->quest_model->get($oRow->q_id);
             $aResults['data'][$iKey]->q_id = $oQuest->q_id;
             $aResults['data'][$iKey]->qpt_topic = $oQuest->qpt_topic;
+            $aResults['data'][$iKey]->p_url = preg_replace('/[^\w\s\d]/', '', $oRow->p_name);
         }
         $this->data['aResults'] = $aResults['data'];
         

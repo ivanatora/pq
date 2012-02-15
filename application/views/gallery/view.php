@@ -15,7 +15,7 @@
     <? foreach ($aResults as $oItem): ?>
         <span class='thumb_container'>
             <div class='thumb_name'><?= $oItem->p_name;?></div>
-            <a href='/submission/view/<?= $oItem->p_name;?>/<?= $oItem->p_id;?>'>
+            <a href='/submission/view/<?= $oItem->p_url;?>/<?= $oItem->p_id;?>'>
                 <img src="/media/storage/submissions/<?= $oItem->p_id?>/<?= $oItem->p_image;?>_thumb.jpg" />
             </a>
             <div class='thumb_meta'>
