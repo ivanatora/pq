@@ -110,7 +110,7 @@ class Tools extends MY_Controller {
     public function git_post_receive() {
 	//lm($_SERVER);
 	//lm($_POST);
-	l//m(getcwd());
+	//lm(getcwd());
         //chdir("/home/ivanatora/pq2");
         system("git pull");
     }
