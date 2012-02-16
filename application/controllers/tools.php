@@ -2,9 +2,7 @@
 
 class Tools extends MY_Controller {
 
-    public function __construct() {
-        parent::__construct();
-        
+    protected function _check_cli(){
         if ($this->input->is_cli_request() == false){
             lm("NOT CLI");
             exit();
@@ -12,6 +10,8 @@ class Tools extends MY_Controller {
     }
     
 	public function extract_photos() {
+        $this->_check_cli();
+        
         $aRes = $this->db->query("SELECT * FROM photos WHERE p_active = 'N'", false)->result();
         
         foreach ($aRes as $oRow){
@@ -40,19 +40,9 @@ class Tools extends MY_Controller {
         }
     }
     
-    public function test_utf8(){
-        $this->db->simple_query('SET NAMES utf8');  
-        $aRes = $this->db->query("SELECT * FROM comments", false)->result();
-        print_r($aRes);
-    }
-    
-    public function test_insert() {
-        $this->db->insert('comments', array(
-            'c_text' => 'Аллаллала баллала'
-        ));
-    }
-    
     public function import_comments() {
+        $this->_check_cli();
+        
         $sCommentsFile = "/opt/projects/pq/tools/comment_export.txt";
         $sImportStr = file_get_contents($sCommentsFile);
         $aRes = unserialize($sImportStr);
@@ -63,6 +53,8 @@ class Tools extends MY_Controller {
     }
     
     public function select_daily_topic($sDate = 'today'){
+        $this->_check_cli();
+        
         if (!preg_match('/\d{4}-\d{2}-\d{2}/', $sDate)) {
             if ($sDate == 'today') {
                 $sDate = date("Y-m-d");
@@ -114,6 +106,14 @@ class Tools extends MY_Controller {
 
         }
     }
+    
+    public function git_post_receive() {
+        lm($_SERVER);
+        lm($_POST);
+        //chdir("/home/ivanatora/pq2");
+        //system("git pull");
+    }
+
 }
 
 
