@@ -5,10 +5,10 @@ class Tools extends MY_Controller {
     public function __construct() {
         parent::__construct();
         
-        if ($this->input->is_cli_request() == false){
-            lm("NOT CLI");
-            exit();
-        }
+        //if ($this->input->is_cli_request() == false){
+        //    lm("NOT CLI");
+        //    exit();
+        //}
     }
     
 	public function extract_photos() {
@@ -113,6 +113,14 @@ class Tools extends MY_Controller {
             $this->email->send();
 
         }
+    }
+
+    public function git_post_receive() {
+	//lm($_SERVER);
+	//lm($_POST);
+	l//m(getcwd());
+        //chdir("/home/ivanatora/pq2");
+        system("git pull");
     }
 }
 
