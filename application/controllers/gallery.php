@@ -69,7 +69,6 @@ class Gallery extends MY_Controller {
     public function quests() {
         $sToday = date("Y-m-d");
         $this->data['aQuests'] = $this->quest_model->getOlderThan($sToday);
-        lm($this->data['aQuests']);
         
         $this->load->view('include/header', $this->data);
         $this->load->view('gallery/quests', $this->data);

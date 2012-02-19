@@ -181,3 +181,8 @@ h3 {
     border: 0px;
     display: none;
 }
+
+.submission_exif {
+    font-style: italic;
+    font-size: 12px;
+}

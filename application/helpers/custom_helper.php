@@ -41,3 +41,65 @@ function lm($str, $var_dump = false) {
     fwrite($fp, $sOut);
     fclose($fp);
 }
+
+function fix_fraction($sFraction, $sType = 'decimal'){
+    if (! strstr($sFraction, '/')) return $sFraction;
+    
+    $aParts = explode("/", $sFraction);
+    if ($sType == 'decimal'){
+//        print $aParts[0] . '/' . $aParts[1] . '=' . $aParts[0] / $aParts[1] . "\n";
+        return $aParts[0] / $aParts[1];
+    }
+    
+    if ($sType == 'inverted'){
+        if ($aParts[1] == 1){
+            return $aParts[0];
+        }
+        elseif ($aParts[0] == 10 && $aParts[1] == 10){
+            return 1;
+        }
+        elseif ($aParts[0] == 10){
+            return "1/" . ($aParts[1]/10);
+        }
+        elseif ($aParts[0] == 1){
+            return "1/" . $aParts[1];
+        }
+        else {
+            return $aParts[0] / $aParts[1];
+        }
+        
+    }
+    
+}
+
+function get_exif($sFilename){
+    $aExif = exif_read_data($sFilename, 0, true);
+    $aExifOut = array(
+        'camera' => 'unknown',
+        'iso' => 'unknown',
+        'shutter' => 'unknown',
+        'aperture' => 'unknown',
+        'focal' => 'unknown'
+    );
+    if (!isset($aExif['IFD0']) || !isset($aExif['EXIF'])){
+        return $aExifOut;
+    }
+    
+    if (isset($aExif['IFD0']['Model'])){
+        $aExifOut['camera'] = $aExif['IFD0']['Model'];
+    }
+    if (isset($aExif['EXIF']['ISOSpeedRatings'])){
+        $aExifOut['iso'] = $aExif['EXIF']['ISOSpeedRatings'];
+    }
+    if (isset($aExif['EXIF']['ExposureTime'])){
+        $aExifOut['shutter'] = fix_fraction($aExif['EXIF']['ExposureTime'], 'inverted');
+    }
+    if (isset($aExif['EXIF']['FNumber'])){
+        $aExifOut['aperture'] = fix_fraction($aExif['EXIF']['FNumber'], 'decimal');
+    }
+    if (isset($aExif['EXIF']['FocalLength'])){
+        $aExifOut['focal'] = fix_fraction($aExif['EXIF']['FocalLength'], 'decimal');
+    }
+    
+    return $aExifOut;
+}

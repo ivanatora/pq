@@ -3,11 +3,16 @@
 class Submission_model extends CI_Model {
     private $table = 'photos';
     
+    public function getAll() {
+        return $this->db->get($this->table)->result();
+    }
+    
     public function add($aData) {
         $this->db->insert($this->table, $aData);
     }
     
     public function get($id) {
+        // get main part
         $this->db->select('p.*, u.*, qpt.*');
         $this->db->from('photos p');
         $this->db->join('users u', 'u.u_id = p.u_id');
@@ -17,11 +22,20 @@ class Submission_model extends CI_Model {
         
         $oPhoto = $this->db->get()->first_row();
         
+        // get exif
+        $this->db->select('*');
+        $this->db->from('exif');
+        $this->db->where('p_id', $id);
+        $oPhoto->exif = $this->db->get()->result();
+        
+        
+        // get rating
         $this->db->select('AVG(r_rating) as r_rating_average', false);
         $this->db->from('ratings');
         $this->db->where('p_id', $oPhoto->p_id);
         $oPhoto->r_rating_average = (string) $this->db->get()->first_row()->r_rating_average;
         
+        // get comments
         $this->db->select('c.*, u.*');
         $this->db->from('comments c');
         $this->db->join('users u', 'c.u_id = u.u_id');
@@ -106,5 +120,27 @@ class Submission_model extends CI_Model {
         $this->db->where('p_active', 'Y');
         
         return $this->db->get()->first_row();
+    }
+    
+    public function updateExif($id, $aExif){
+        $this->db->where('p_id', $id);
+        $this->db->delete('exif');
+        
+        foreach ($aExif as $sKey => $sValue){
+            if (strstr($sValue, '/')){
+                $aParts = explode("/", $sValue);
+                $sRawValue = $aParts[0] / $aParts[1];
+            }
+            else {
+                $sRawValue = $sValue;
+            }
+            $aData = array(
+                'p_id' => $id, 
+                'e_key' => $sKey, 
+                'e_value' => $sValue,
+                'e_raw_value' => $sRawValue
+            );
+            $this->db->insert('exif', $aData);
+        }
     }
 }

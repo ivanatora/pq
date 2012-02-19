@@ -32,6 +32,12 @@ $(document).ready(function(){
     <input type="hidden" id="original_poster" value="<?=$oPhoto->u_id;?>" />
     <input type="hidden" id="original_photo_id" value="<?=$oPhoto->p_id;?>" />
     
+    <div class="submission_exif">
+        <? foreach ($oPhoto->display_exif as $oExif): ?>
+            <?= $oExif->key; ?>: <?= $oExif->value;?>;
+        <? endforeach; ?>
+    </div>
+    
     <img class="star_rating" id="star_1" src='/media/images/star_<? if ($oPhoto->r_rating_average < 0.5):?>empty<? elseif ($oPhoto->r_rating_average < 1):?>half<? else:?>full<? endif;?>.png' />
     <img class="star_rating" id="star_2" src='/media/images/star_<? if ($oPhoto->r_rating_average < 1.5):?>empty<? elseif ($oPhoto->r_rating_average < 2):?>half<? else:?>full<? endif;?>.png' />
     <img class="star_rating" id="star_3" src='/media/images/star_<? if ($oPhoto->r_rating_average < 2.5):?>empty<? elseif ($oPhoto->r_rating_average < 3):?>half<? else:?>full<? endif;?>.png' />

@@ -61,6 +61,35 @@ class Submission extends MY_Controller {
     public function view($sTitle, $id){
         $this->data['oPhoto'] = $this->submission_model->get($id);
         
+        // make exif more user friendly
+        $aDisplayExif = array();
+        foreach ($this->data['oPhoto']->exif as $oExif){
+            $oNewRow = new stdClass();
+            if ($oExif->e_key == 'camera'){
+                $oNewRow->key = 'Camera';
+                $oNewRow->value = $oExif->e_value;
+            }
+            if ($oExif->e_key == 'iso'){
+                $oNewRow->key = 'ISO';
+                $oNewRow->value = $oExif->e_value;
+            }
+            if ($oExif->e_key == 'shutter'){
+                $oNewRow->key = 'Shutter speed';
+                $oNewRow->value = $oExif->e_value . 's';
+            }
+            if ($oExif->e_key == 'aperture'){
+                $oNewRow->key = 'Aperture';
+                $oNewRow->value = 'F' . $oExif->e_value;
+            }
+            if ($oExif->e_key == 'focal'){
+                $oNewRow->key = 'Focal length';
+                $oNewRow->value = $oExif->e_value . 'mm';
+            }
+            
+            $aDisplayExif[] = $oNewRow;
+        }
+        $this->data['oPhoto']->display_exif = $aDisplayExif;
+        lm($this->data['oPhoto']);
         $this->load->view('include/header', $this->data);
         $this->load->view('submission/view', $this->data);
 		$this->load->view('include/footer', $this->data);
@@ -171,6 +200,10 @@ class Submission extends MY_Controller {
                 echo json_encode(array('success' => false, 'msg' => 'Not an image'));
                 exit();
             }
+            
+            // add some exif
+            $aExif = get_exif($sFileLocation);
+            $this->submission_model->updateExif($iSubmissionId, $aExif);
             
             $oQuest = $this->quest_model->getCurrentQuest();
             

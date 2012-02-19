@@ -114,6 +114,24 @@ class Tools extends MY_Controller {
         //chdir("/home/ivanatora/pq2");
         system("git pull");
     }
+    
+    public function get_exiv() {
+        $this->_check_cli();
+        
+        $this->load->model('submission_model');
+        $aSubmissions = $this->submission_model->getAll();
+        foreach ($aSubmissions as $oRow){
+            $sFilename = "media/storage/submissions/" . $oRow->p_id . "/" . 
+                    $oRow->p_image . ".jpg";
+            print ">>> $sFilename\n";
+            $aExif = get_exif($sFilename);
+            
+            print_r($aExif);
+            $this->submission_model->updateExif($oRow->p_id, $aExif);
+            //exit();
+        }
+        
+    }
 }
 
 
