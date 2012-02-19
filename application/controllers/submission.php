@@ -64,6 +64,7 @@ class Submission extends MY_Controller {
         // make exif more user friendly
         $aDisplayExif = array();
         foreach ($this->data['oPhoto']->exif as $oExif){
+            if ($oExif->e_value == 'unknown') continue;
             $oNewRow = new stdClass();
             if ($oExif->e_key == 'camera'){
                 $oNewRow->key = 'Camera';
