@@ -14,6 +14,7 @@
     <link href="/media/css/style.css" rel="stylesheet" type="text/css" />
     <link href="/media/css/custom.css" rel="stylesheet" type="text/css" />
     <link href="/media/css/fileuploader.css" rel="stylesheet" type="text/css" />
+    <link href="/media/css/jquery-ui.css" rel="stylesheet" type="text/css" />
     <script>
         // setting some constants
 
@@ -25,6 +26,8 @@
     <script type="text/javascript" src="/media/js/fileuploader.js"></script>
     <script type="text/javascript" src="/media/js/functions.js"></script>
     <script type="text/javascript" src="/media/js/sprintf.js"></script>
+    <script type="text/javascript" src="/media/js/jquery-ui.min.js"></script>
+    <script type="text/javascript" src="/media/js/dragslider.js"></script>
     <script type="text/javascript" src="/media/js/scripts.js"></script>
 </head>
 <body>

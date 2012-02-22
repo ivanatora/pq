@@ -74,6 +74,13 @@ class Gallery extends MY_Controller {
         $this->load->view('gallery/quests', $this->data);
 		$this->load->view('include/footer', $this->data);
     }
+    
+    public function search() {
+        
+        $this->load->view('include/header', $this->data);
+        $this->load->view('gallery/search', $this->data);
+		$this->load->view('include/footer', $this->data);
+    }
 }
 
 

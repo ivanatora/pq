@@ -4,6 +4,7 @@
                 <li><a href="/submission/upload">Upload</a></li>
                 <li><a href="/gallery/quests">Previous quests</a></li>
                 <li><a href="/member/list_all">All users</a></li>
+                <li><a href="/gallery/search">Search</a></li>
             </ul>
 
             <!--

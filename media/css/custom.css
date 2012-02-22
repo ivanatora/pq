@@ -186,3 +186,35 @@ h3 {
     font-style: italic;
     font-size: 12px;
 }
+
+.slider {
+    width: 400px;
+}
+
+.search_page h4 {
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.search_page .slider_value {
+    position: absolute;
+}
+
+#min_iso {
+    left: 273px;
+}
+#max_iso {
+    left: 673px;
+}
+#min_shutter {
+    left: 273px;
+}
+#max_shutter {
+    left: 673px;
+}
+#min_aperture {
+    left: 273px;
+}
+#max_aperture {
+    left: 673px;
+}
