@@ -1,6 +1,8 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
 class Gallery extends MY_Controller {
+    
+    protected $aSearchParams = array();
 
     public function __construct() {
         parent::__construct();
@@ -17,6 +19,7 @@ class Gallery extends MY_Controller {
         $iLimit = NUM_PICS_ROWS_PER_PAGE * NUM_PICS_COLS_PER_PAGE;
         
         $aWhere = array();
+        $aExifSearch = array();
         if (preg_match('/quest-(\w+)-(\d+?)$/', $sType, $aMatches)){
             $aWhere['q_id'] = $aMatches[2];
             $this->data['sGalleryType'] = 'quest';
@@ -27,9 +30,15 @@ class Gallery extends MY_Controller {
             $this->data['sGalleryType'] = 'user';
             $this->data['sGalleryTitle'] = $aMatches[1];
         }
+        if ($sType == 'search'){
+            $this->data['sGalleryType'] = 'search';
+            $this->data['sGalleryTitle'] = $this->_generateTitleBySearch();
+            $aExifSearch = $this->_generateWhereBySearch();
+        }
         
         
-        $aResults = $this->gallery_model->getPage(0, 0, $iStart, $iLimit, $aWhere);
+        $aResults = $this->gallery_model->getPage(0, 0, $iStart, $iLimit, 
+                $aWhere, $aExifSearch);
         
         foreach ($aResults['data'] as $iKey => $oRow){
             $oQuest = $this->quest_model->get($oRow->q_id);
@@ -76,10 +85,124 @@ class Gallery extends MY_Controller {
     }
     
     public function search() {
+        if ($this->input->post()){
+            $aExifParams = array(
+                'min_iso' => $this->input->post('min_iso'),
+                'max_iso' => $this->input->post('max_iso'),
+                'min_shutter' => $this->input->post('min_shutter'),
+                'max_shutter' => $this->input->post('max_shutter'),
+                'min_aperture' => $this->input->post('min_aperture'),
+                'max_aperture' => $this->input->post('max_aperture'),
+                'min_focal' => $this->input->post('min_focal'),
+                'max_focal' => $this->input->post('max_focal')
+            );
+            
+            // filter out default values
+            if ($aExifParams['min_iso'] == '0'){
+                unset($aExifParams['min_iso']);
+            }
+            if ($aExifParams['max_iso'] == '3200+'){
+                unset($aExifParams['max_iso']);
+            }
+            if ($aExifParams['min_shutter'] == '0'){
+                unset($aExifParams['min_shutter']);
+            }
+            if ($aExifParams['max_shutter'] == '32+'){
+                unset($aExifParams['max_shutter']);
+            }
+            if ($aExifParams['min_aperture'] == '0'){
+                unset($aExifParams['min_aperture']);
+            }
+            if ($aExifParams['max_aperture'] == '32+'){
+                unset($aExifParams['max_aperture']);
+            }
+            if ($aExifParams['min_focal'] == '0'){
+                unset($aExifParams['min_focal']);
+            }
+            if ($aExifParams['max_focal'] == '1000+'){
+                unset($aExifParams['max_focal']);
+            }
+            
+            
+//            if (strstr($aExifParams['min_shutter'], '/')){
+//                $aParts = explode("/", $aExifParams['min_shutter']);
+//                $aExifParams['min_shutter'] = $aParts[0] / $aParts[1];
+//            }
+//            if (strstr($aExifParams['max_shutter'], '/')){
+//                $aParts = explode("/", $aExifParams['max_shutter']);
+//                $aExifParams['max_shutter'] = $aParts[0] / $aParts[1];
+//            }
+            //$this->session->set_flashdata('aExifParams', $aExifParams);
+            $this->aSearchParams = $aExifParams;
+            
+            $this->view('search');
+            return;
+        }
         
         $this->load->view('include/header', $this->data);
         $this->load->view('gallery/search', $this->data);
 		$this->load->view('include/footer', $this->data);
+    }
+    
+    protected function _generateTitleBySearch() {
+        $sTitle = '';
+        $aTitle = array();
+        foreach ($this->aSearchParams as $sKey => $sValue){
+            $sPureKey = str_replace('min_', '', $sKey);
+            $sPureKey = str_replace('max_', '', $sPureKey);
+            
+            if (!isset($aTitle[$sPureKey])){
+                $aTitle[$sPureKey] = $sPureKey;
+            }
+            
+            if (strstr($sKey, 'min_')){
+                $aTitle[$sPureKey] = "$sValue < " . $aTitle[$sPureKey];
+            }
+            if (strstr($sKey, 'max_')){
+                $aTitle[$sPureKey] = $aTitle[$sPureKey] . " < $sValue";
+            }
+        }
+        
+        return join("; ", array_values($aTitle));
+    }
+    
+    protected function _generateWhereBySearch() {
+        $aWhere = array();
+        
+        foreach ($this->aSearchParams as $sKey => $sValue){
+            $sPureKey = str_replace('min_', '', $sKey);
+            $sPureKey = str_replace('max_', '', $sPureKey);
+            
+            if (strstr($sValue, '/')){
+                $aParts = explode("/", $sValue);
+                $sValue = $aParts[0] / $aParts[1];
+            }
+            
+            if (strstr($sKey, 'min_')){
+                $sNewStr = "(e.e_key = '" . $this->db->escape_str($sPureKey) . 
+                        "' AND e.e_raw_value >= '". $this->db->escape_str($sValue) . "')"; 
+                if (isset($aWhere[$sPureKey])){
+                    $aWhere[$sPureKey] = "(" . $aWhere[$sPureKey] . " AND " . $sNewStr . ")";
+                }
+                else {
+                    $aWhere[$sPureKey] = $sNewStr;
+                }
+            }
+            if (strstr($sKey, 'max_')){
+                $sNewStr = "(e.e_key = '" . $this->db->escape_str($sPureKey) . 
+                        "' AND e.e_raw_value <= '". $this->db->escape_str($sValue) . "')"; 
+                if (isset($aWhere[$sPureKey])){
+                    $aWhere[$sPureKey] = "(". $aWhere[$sPureKey] . " AND " . $sNewStr . ")";
+                }
+                else {
+                    $aWhere[$sPureKey] = $sNewStr;
+                }
+            }
+        }
+        
+        lm("FROM: " . print_r($this->aSearchParams, true));
+        lm("GOT: " . print_r($aWhere, true));
+        return $aWhere;
     }
 }
 

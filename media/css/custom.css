@@ -3,6 +3,17 @@
     float: right;
 }
 
+.leftFormSubmit {
+    border: 1px solid #2A759F;
+    cursor: pointer;
+    display: block;
+    float: left;
+    font: 12px Arial,Helvetica,sans-serif;
+    height: 30px;
+    width: 78px;
+    margin-top: 20px;
+}
+
 .formCentered input[type=submit],
 .formSubmit {
     border: 1px solid #2A759F;
@@ -198,6 +209,8 @@ h3 {
 
 .search_page .slider_value {
     position: absolute;
+    border: 0;
+    background: white;
 }
 
 #min_iso {
@@ -217,4 +230,21 @@ h3 {
 }
 #max_aperture {
     left: 673px;
+}
+#min_focal {
+    left: 273px;
+}
+#max_focal {
+    left: 673px;
+}
+
+
+
+
+
+
+
+
+.floatLeft {
+    float: left;
 }
