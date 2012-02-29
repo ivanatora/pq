@@ -7,6 +7,7 @@ class Quest_model extends CI_Model {
         $this->db->select("*");
         $this->db->from("quests q");
         $this->db->join("quests_possible_topics qpt", "q.qpt_id = qpt.qpt_id");
+        $this->db->where("q.q_date < " . date("Y-m-d"));
         $this->db->order_by('q.q_date DESC');
         $this->db->limit($iLimit);
         
