@@ -8,8 +8,8 @@
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="language" content="en" />
     
-    <link rel="alternate" type="application/rss+xml" title="RSS feed for quests" href="/index.php?type=rss&amp;module=rss&amp;action=viewQuests" />
-    <link rel="alternate" type="application/rss+xml" title="RSS feed for new photos" href="/index.php?type=rss&amp;module=rss&amp;action=viewPhotos" />
+    <link rel="alternate" type="application/rss+xml" title="RSS feed for quests" href="/rss/quests" />
+    <link rel="alternate" type="application/rss+xml" title="RSS feed for new photos" href="/rss/photos" />
     
     <link href="/media/css/style.css" rel="stylesheet" type="text/css" />
     <link href="/media/css/custom.css" rel="stylesheet" type="text/css" />

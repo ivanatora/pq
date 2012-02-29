@@ -3,6 +3,15 @@
 class Quest_model extends CI_Model {
     private $table = 'quests';
     
+    public function getLatest($iLimit){
+        $this->db->select("*");
+        $this->db->from("quests q");
+        $this->db->join("quests_possible_topics qpt", "q.qpt_id = qpt.qpt_id");
+        $this->db->order_by('q.q_date DESC');
+        $this->db->limit($iLimit);
+        
+        return $this->db->get()->result();
+    }
     
     public function getQuestForDate($sDate){
         

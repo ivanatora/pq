@@ -46,6 +46,17 @@ class Submission_model extends CI_Model {
         return $oPhoto;
     }
     
+    public function getLatest($iLimit) {
+        $this->db->select("*");
+        $this->db->from("photos p");
+        $this->db->join("users u", 'p.u_id = u.u_id');
+        $this->db->order_by('p.p_date DESC');
+        $this->db->where('p.p_active', 'Y');
+        $this->db->limit($iLimit);
+        
+        return $this->db->get()->result();
+    }
+    
     public function edit($id, $aData){
         $this->db->where('p_id', $id);
         $this->db->update($this->table, $aData);
