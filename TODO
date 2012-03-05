@@ -1,5 +1,10 @@
 - emails
 - upload submission -> put exif in proper place
-- search feature with new exif structure
 - http://pq.ivanatora.info/submission/view/Christmas/20 - center picture
 - search page - digits on search bars on wider displays
+- after forced login, return to the previous page
+- login form - add 'remember me' checkbox
+- delete photo - jquery popup
+
+------------------ DONE ------------------ 
+- search feature with new exif structure - 2012-05-03

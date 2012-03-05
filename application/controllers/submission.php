@@ -204,9 +204,6 @@ class Submission extends MY_Controller {
                 exit();
             }
             
-            // add some exif
-            $aExif = get_exif($sFileLocation);
-            $this->submission_model->updateExif($iSubmissionId, $aExif);
             
             $oQuest = $this->quest_model->getCurrentQuest();
             
@@ -219,6 +216,11 @@ class Submission extends MY_Controller {
             );
             
             $this->submission_model->add($aData);
+            
+            // add some exif
+            $aExif = get_exif($sFileLocation);
+            $this->submission_model->updateExif($iSubmissionId, $aExif);
+            
             $aOut = array(
                 'success' => true, 
                 'id' => $iSubmissionId, 

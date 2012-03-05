@@ -34,11 +34,12 @@ class Gallery extends MY_Controller {
             $this->data['sGalleryType'] = 'search';
             $this->data['sGalleryTitle'] = $this->_generateTitleBySearch();
             $aExifSearch = $this->_generateWhereBySearch();
+            $aWhere = array_merge($aWhere, $aExifSearch);
         }
         
         
         $aResults = $this->gallery_model->getPage(0, 0, $iStart, $iLimit, 
-                $aWhere, $aExifSearch);
+                $aWhere);
         
         foreach ($aResults['data'] as $iKey => $oRow){
             $oQuest = $this->quest_model->get($oRow->q_id);
@@ -178,30 +179,24 @@ class Gallery extends MY_Controller {
                 $sValue = $aParts[0] / $aParts[1];
             }
             
+            if ($sPureKey == 'shutter'){
+                $sPureKey = 'shutter_real';
+            }
+            
+            $sColumnName = 'p_exif_' . $sPureKey;
+            
             if (strstr($sKey, 'min_')){
-                $sNewStr = "(e.e_key = '" . $this->db->escape_str($sPureKey) . 
-                        "' AND e.e_raw_value >= '". $this->db->escape_str($sValue) . "')"; 
-                if (isset($aWhere[$sPureKey])){
-                    $aWhere[$sPureKey] = "(" . $aWhere[$sPureKey] . " AND " . $sNewStr . ")";
-                }
-                else {
-                    $aWhere[$sPureKey] = $sNewStr;
-                }
+                $aWhere[$sColumnName . ' >='] = $sValue;
+                $aWhere[$sColumnName . ' <>'] = 0;
             }
             if (strstr($sKey, 'max_')){
-                $sNewStr = "(e.e_key = '" . $this->db->escape_str($sPureKey) . 
-                        "' AND e.e_raw_value <= '". $this->db->escape_str($sValue) . "')"; 
-                if (isset($aWhere[$sPureKey])){
-                    $aWhere[$sPureKey] = "(". $aWhere[$sPureKey] . " AND " . $sNewStr . ")";
-                }
-                else {
-                    $aWhere[$sPureKey] = $sNewStr;
-                }
+                $aWhere[$sColumnName . ' <='] = $sValue;
+                $aWhere[$sColumnName . ' <>'] = 0;
             }
         }
         
-        lm("FROM: " . print_r($this->aSearchParams, true));
-        lm("GOT: " . print_r($aWhere, true));
+        lm($aWhere);
+        
         return $aWhere;
     }
 }
