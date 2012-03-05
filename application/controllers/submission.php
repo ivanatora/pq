@@ -60,7 +60,8 @@ class Submission extends MY_Controller {
     
     public function view($sTitle, $id){
         $this->data['oPhoto'] = $this->submission_model->get($id);
-        
+       
+        /* 
         // make exif more user friendly
         $aDisplayExif = array();
         foreach ($this->data['oPhoto']->exif as $oExif){
@@ -90,7 +91,8 @@ class Submission extends MY_Controller {
             $aDisplayExif[] = $oNewRow;
         }
         $this->data['oPhoto']->display_exif = $aDisplayExif;
-        lm($this->data['oPhoto']);
+        */
+        //lm($this->data['oPhoto']);
         $this->load->view('include/header', $this->data);
         $this->load->view('submission/view', $this->data);
 		$this->load->view('include/footer', $this->data);

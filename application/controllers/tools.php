@@ -132,6 +132,28 @@ class Tools extends MY_Controller {
         }
         
     }
+
+    public function move_exiv(){
+        $aExiv = $this->db->get('exif')->result();
+        foreach ($aExiv as $oRow){
+            $sField = '';
+            $sValue = $oRow->e_value;
+            switch($oRow->e_key){
+                case 'camera': $sField = 'p_exif_camera'; break;
+                case 'iso': $sField = 'p_exif_iso'; break;
+                case 'aperture': $sField = 'p_exif_aperture'; break;
+                case 'focal': $sField = 'p_exif_focal'; break;
+                case 'shutter': $sField = 'p_exif_shutter'; break;
+            }
+            $this->db->where('p_id', $oRow->p_id);
+            $this->db->update('photos', array($sField => $sValue));
+
+            if ($oRow->e_key == 'shutter'){
+                $this->db->where('p_id', $oRow->p_id);
+                $this->db->update('photos', array('p_exif_shutter_real' => $oRow->e_raw_value));
+            }
+        }
+    }
 }
 
 

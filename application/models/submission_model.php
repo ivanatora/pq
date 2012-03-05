@@ -21,13 +21,14 @@ class Submission_model extends CI_Model {
         $this->db->where('p_id', $id);
         
         $oPhoto = $this->db->get()->first_row();
-        
+       
+        /* 
         // get exif
         $this->db->select('*');
         $this->db->from('exif');
         $this->db->where('p_id', $id);
         $oPhoto->exif = $this->db->get()->result();
-        
+        */
         
         // get rating
         $this->db->select('AVG(r_rating) as r_rating_average', false);
@@ -134,6 +135,23 @@ class Submission_model extends CI_Model {
     }
     
     public function updateExif($id, $aExif){
+        // get real shutter
+        $aParts = explode("/", $aExif['shutter']);
+        $sRealShutter = $aParts[0] / $aParts[1];
+
+        $aData = array(
+            'p_exif_camera' => $aExif['camera'],
+            'p_exif_shutter' => $aExif['shutter'],
+            'p_exif_shutter_real' => $sRealShutter,
+            'p_exif_iso' => $aExif['iso'],
+            'p_exif_aperture' => $aExif['aperture'],
+            'p_exif_focal' => $aExif['focal']
+        );
+
+
+        $this->db->where('p_id', $id);
+        $this->db->update($this->table, $aData);
+        /*
         $this->db->where('p_id', $id);
         $this->db->delete('exif');
         
@@ -153,5 +171,6 @@ class Submission_model extends CI_Model {
             );
             $this->db->insert('exif', $aData);
         }
+        */
     }
 }

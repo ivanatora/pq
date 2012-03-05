@@ -34,13 +34,13 @@ class Gallery_model extends CI_Model {
             // something stupid ...
             foreach ($aExifSearch as $sStr){
                 preg_match("/e_key = '(.+?)'/", $sStr, $aMatches);
-                lm("M: " . print_r($aMatches, true));
+                #lm("M: " . print_r($aMatches, true));
                 $aDifferentKeys[$aMatches[1]] = 1;
             }
             
             $sWhereStr = join(" OR ", $aExifSearch);
             $sWhereStr = "($sWhereStr)";
-            lm("ES: " . print_r($aExifSearch, true));
+            #lm("ES: " . print_r($aExifSearch, true));
             $this->db->where($sWhereStr, null, false);
             $this->db->having('COUNT(*)', count(array_keys($aDifferentKeys)));
             lm("DK: " , print_r($aDifferentKeys, true));

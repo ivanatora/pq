@@ -33,9 +33,17 @@ $(document).ready(function(){
     <input type="hidden" id="original_photo_id" value="<?=$oPhoto->p_id;?>" />
     
     <div class="submission_exif">
+        Camera: <?=$oPhoto->p_exif_camera;?>;
+        <?if ($oPhoto->p_exif_shutter != 'unknown'): ?>Shutter speed: <?=$oPhoto->p_exif_shutter;?> s;<?endif;?>
+        <?if ($oPhoto->p_exif_iso != 0):?>ISO: <?=$oPhoto->p_exif_iso;?>;<?endif;?>
+        <?if ($oPhoto->p_exif_aperture != 0): ?>Aperture: <?= ($oPhoto->p_exif_aperture != 'unknown') ? 'F' : ''?><?=$oPhoto->p_exif_aperture;?>;<?endif;?>
+        <?if ($oPhoto->p_exif_focal != 0): ?>Focal length: <?=$oPhoto->p_exif_focal;?> mm<?endif;?>
+
+        <?/*
         <? foreach ($oPhoto->display_exif as $oExif): ?>
             <?= $oExif->key; ?>: <?= $oExif->value;?>;
         <? endforeach; ?>
+        */?>
     </div>
     
     <img class="star_rating" id="star_1" src='/media/images/star_<? if ($oPhoto->r_rating_average < 0.5):?>empty<? elseif ($oPhoto->r_rating_average < 1):?>half<? else:?>full<? endif;?>.png' />
