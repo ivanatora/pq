@@ -31,6 +31,11 @@ $(document).ready(function(){
             
         }
     });
+    var oOffset = $('#iso_slider').offset();
+    var iBeginLeft = oOffset.left - 5;
+    $("#min_iso").css('left', iBeginLeft);
+    $("#max_iso").css('left', iBeginLeft + iSliderWidth);
+    
     $(".min_iso").each(function(){
         $(this).val(aIsoValues[0]);
     })
@@ -59,6 +64,11 @@ $(document).ready(function(){
             
         }       
     });
+    var oOffset = $('#shutter_slider').offset();
+    var iBeginLeft = oOffset.left - 5;
+    $("#min_shutter").css('left', iBeginLeft);
+    $("#max_shutter").css('left', iBeginLeft + iSliderWidth);
+    
     $(".min_shutter").val(aShutterValues[0]);
     $(".max_shutter").val(aShutterValues[aShutterValues.length-1]);
     
@@ -84,6 +94,11 @@ $(document).ready(function(){
             
         }    
     });
+    var oOffset = $('#aperture_slider').offset();
+    var iBeginLeft = oOffset.left - 5;
+    $("#min_aperture").css('left', iBeginLeft);
+    $("#max_aperture").css('left', iBeginLeft + iSliderWidth);
+    
     $(".min_aperture").val(aApertureValues[0]);
     $(".max_aperture").val(aApertureValues[aApertureValues.length-1]);
     
@@ -109,6 +124,11 @@ $(document).ready(function(){
             
         }    
     });
+    var oOffset = $('#focal_slider').offset();
+    var iBeginLeft = oOffset.left - 5;
+    $("#min_focal").css('left', iBeginLeft);
+    $("#max_focal").css('left', iBeginLeft + iSliderWidth);
+    
     $(".min_focal").val(aFocalValues[0]);
     $(".max_focal").val(aFocalValues[aFocalValues.length-1]);
     
