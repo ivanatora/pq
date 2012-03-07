@@ -195,8 +195,6 @@ class Gallery extends MY_Controller {
             }
         }
         
-        lm($aWhere);
-        
         return $aWhere;
     }
 }

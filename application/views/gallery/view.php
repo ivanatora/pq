@@ -5,7 +5,7 @@
         <h2>From <?= $sGalleryType;?>: <?= $sGalleryTitle;?></h2>
     <? endif;?>
     
-    <div id="page_bar">
+    <div class="page_bar">
         <?= $this->pagination->create_links(); ?>
     </div>
     
@@ -27,6 +27,9 @@
     <? endforeach; ?>
     </div> <!-- #thumbs -->
     
+    <div class="page_bar">
+        <?= $this->pagination->create_links(); ?>
+    </div>
     
 
 </div> <!-- #content -->

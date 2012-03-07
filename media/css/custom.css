@@ -99,9 +99,8 @@
     margin-top: 2px;
 }
 
-#page_bar {
-    margin-left: auto;
-    margin-right: auto;
+.page_bar {
+    text-align: center;
 }
 
 .link_gallery_page {
@@ -238,6 +237,9 @@ h3 {
     left: 673px;
 }
 
+.img_container {
+    text-align: center;
+}
 
 
 

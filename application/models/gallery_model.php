@@ -28,9 +28,10 @@ class Gallery_model extends CI_Model {
         }
 
         
-        $aResult = $this->db->get()->result();
+        $oResult = $this->db->get()->first_row();
         //lm("QUERY HERE: " . $this->db->last_query());
-        $iCount = count($aResult);
+        //$iCount = count($aResult);
+        $iCount = $oResult->cnt;
         
         
         $this->db->select("p.*, u_username, u.u_id");

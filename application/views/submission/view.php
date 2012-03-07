@@ -24,9 +24,11 @@ $(document).ready(function(){
         <? endif;?>
     </p>
 
-    <a href='/media/storage/submissions/<?=$oPhoto->p_id;?>/<?= $oPhoto->p_image;?>.jpg'>
-        <img src='/media/storage/submissions/<?=$oPhoto->p_id;?>/<?= $oPhoto->p_image;?>_preview.jpg' />
-    </a>
+    <div class="img_container">
+        <a href='/media/storage/submissions/<?=$oPhoto->p_id;?>/<?= $oPhoto->p_image;?>.jpg'>
+            <img src='/media/storage/submissions/<?=$oPhoto->p_id;?>/<?= $oPhoto->p_image;?>_preview.jpg' />
+        </a>
+    </div>
     <br />
     <input type="hidden" id="original_rating" value="<?=$oPhoto->r_rating_average;?>" />
     <input type="hidden" id="original_poster" value="<?=$oPhoto->u_id;?>" />
