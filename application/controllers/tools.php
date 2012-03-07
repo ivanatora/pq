@@ -87,7 +87,7 @@ class Tools extends MY_Controller {
         $this->quest_model->select($iSelectedId, $sDate);
         
         // email notification
-        if ($sDate != date("Y-m-d")) exit();
+        //if ($sDate != date("Y-m-d")) exit();
         
         $sToday = date("d.m.Y");
         $sMessage = "Topic selected for $sToday is '" . $oPossibleTopic->qpt_topic . "'";
@@ -98,6 +98,7 @@ class Tools extends MY_Controller {
         
         $aUsers = $this->member_model->getUsersBySetting('notify_new_topics', 1);
         foreach ($aUsers as $oReciever){
+            print "Email to: " . $oReciever->u_mail . "\n";
             $this->email->from('pq@dev.ivanatora.info');
             $this->email->to($oReciever->u_mail);
             $this->email->subject($sSubject);
