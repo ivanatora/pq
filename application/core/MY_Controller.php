@@ -5,6 +5,8 @@ class MY_Controller extends CI_Controller {
     public function __construct(){
         parent::__construct();
         
+        $this->load->helper('cookie');
+        
         $this->data = array();
         $this->data['iMemberId'] = 0;
         $this->member_id = 0;
@@ -23,8 +25,15 @@ class MY_Controller extends CI_Controller {
                 $this->member_id = $oUser->u_id;
                 $this->data['oMember'] = $oUser;
                 $this->data['oSettings'] = $this->member_model->getSettings($oUser->u_id);
-                
-                //$this->member_model->destroyHash($this->member_id);
+            }
+        }
+        if ($this->input->cookie('hash')){
+            $oUser = $this->member_model->getByHash($this->input->cookie('hash'));
+            if (!empty($oUser)){
+                $this->data['iMemberId'] = $oUser->u_id;
+                $this->member_id = $oUser->u_id;
+                $this->data['oMember'] = $oUser;
+                $this->data['oSettings'] = $this->member_model->getSettings($oUser->u_id);
             }
         }
         

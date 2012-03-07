@@ -51,7 +51,7 @@ class Submission extends MY_Controller {
             redirect(site_url() . 'submission/view/' . $sTitle .'/' . $iSubmissionId);
         }
         
-        $this->data['sUserhash'] = $this->member_model->makeHash($this->member_id);
+        $this->data['sUserhash'] = $this->session->userdata('user_hash');
         
         $this->load->view('include/header', $this->data);
         $this->load->view('submission/upload', $this->data);

@@ -22,6 +22,11 @@ $(document).ready(function(){
                 <td><span id="warning_password" class="register_warning_hidden"></span></td>
             </tr>
             <tr>
+                <td>Remember me</td>
+                <td><input type="checkbox" name="remember" /></td>
+                <td></td>
+            </tr>
+            <tr>
                 <td></td>
                 <td><input class="formSubmit" id="submitFormLogin" type="submit" value="Login"></td>
                 <td></td>

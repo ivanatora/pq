@@ -10,6 +10,7 @@ class Member extends MY_Controller {
         if ($this->input->post()){
             $sEmail = $this->input->post('email');
             $sPassword = trim($this->input->post('password'));
+            $sRemember = $this->input->post('remember');
             
             $oUser = $this->member_model->getByEmail($sEmail);
             if (empty($oUser)){
@@ -22,6 +23,13 @@ class Member extends MY_Controller {
                 $this->data['error'] = 'Invalid password';
                 $this->_display_login();
                 return;
+            }
+            
+            $sHash = $this->member_model->makeHash($oUser->u_id);
+            $this->session->set_userdata('user_hash', $sHash);
+            if (!empty($sRemember)){
+                $this->load->helper('cookie');
+                $this->input->set_cookie('hash', $sHash, 9999999);
             }
             
             $this->session->set_userdata('member_id', $oUser->u_id);
@@ -81,6 +89,8 @@ class Member extends MY_Controller {
     
     public function logout() {
         $this->session->unset_userdata('member_id');
+        $this->load->helper('cookie');
+        $this->input->set_cookie('hash', '');
         redirect(site_url());
     }
     

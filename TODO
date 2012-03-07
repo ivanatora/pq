@@ -1,6 +1,4 @@
-- http://pq.ivanatora.info/submission/view/Christmas/20 - center picture
 - after forced login, return to the previous page
-- login form - add 'remember me' checkbox
 - delete photo - jquery popup
 
 ------------------ DONE ------------------ 
@@ -8,3 +6,5 @@
 - upload submission -> put exif in proper place - 2012-05-03
 - search page - digits on search bars on wider displays - 2012-05-03
 - emails - 2012-05-07
+- http://pq.ivanatora.info/submission/view/Christmas/20 - center picture - 2012-05-07
+- login form - add 'remember me' checkbox - 2012-05-07
