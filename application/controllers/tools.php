@@ -52,7 +52,7 @@ class Tools extends MY_Controller {
         $this->db->insert_batch('comments', $aRes);
     }
     
-    public function select_daily_topic($sDate = 'today'){
+    public function select_daily_topic($sDate = 'today', $sSkipMails = 'no'){
         $this->_check_cli();
         
         if (!preg_match('/\d{4}-\d{2}-\d{2}/', $sDate)) {
@@ -88,6 +88,8 @@ class Tools extends MY_Controller {
         
         // email notification
         //if ($sDate != date("Y-m-d")) exit();
+        
+        if ($sSkipMails == 'yes') return;
         
         $sToday = date("d.m.Y");
         $sMessage = "Topic selected for $sToday is '" . $oPossibleTopic->qpt_topic . "'";

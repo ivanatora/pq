@@ -27,7 +27,7 @@
 
 .formCentered {
     display: block;
-    width: 300px;
+    width: 330px;
     margin-left: auto;
     margin-right: auto;
 }
@@ -37,12 +37,17 @@
 }
 
 .formCentered input[type=text],
+.formCentered textarea,
 .formCentered input[type=password]{
-    width: 160px;
+    width: 270px;
     padding: 6px 5px;
     font: 14px Arial, Helvetica, sans-serif;
     color: #417b9d;
     border: 1px solid #5B94B6;
+}
+
+.formCentered textarea {
+    height: 120px;
 }
 
 .register_warning_hidden {

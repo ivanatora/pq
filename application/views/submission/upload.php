@@ -11,6 +11,7 @@
             'sizeLimit' : 10000000,
             'fileExt'   : '*.JPG;*.jpg;*.jpeg;*.png',
             'fileDesc'  : 'Image Files',
+            'width'     : 270,
             'auto'      : true,
             'scriptData': {
                 hash: '<?= $sUserhash ?>'

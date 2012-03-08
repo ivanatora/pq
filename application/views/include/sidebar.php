@@ -1,10 +1,12 @@
         <div id="sidebar">
             <h2>Menu</h2>
             <ul>
+                <li><a href="/">Home</a></li>
                 <li><a href="/submission/upload">Upload</a></li>
                 <li><a href="/gallery/quests">Previous quests</a></li>
                 <li><a href="/member/list_all">All users</a></li>
                 <li><a href="/gallery/search">Search</a></li>
+                <li><a href="/contact">Contact Us</a></li>
             </ul>
 
             <!--

@@ -75,7 +75,7 @@
             might not be working, other might change with time. However, we are 
             trying to keep things stable, so if you notice something that doesn't 
             behave correctly, it is probably because we had missed it. We will be 
-            very happy if you send bug reports to ivanatora@gmail.com</p>
+            very happy if you send bug reports <a href="/contact">here</a></p>
         
         <h3 id='faq12'>I don't have DSLR, can I still play?</h3>
         <p>Of course, if you have a compact camera or cameraphone or other means 

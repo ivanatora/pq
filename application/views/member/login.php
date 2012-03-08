@@ -14,22 +14,18 @@ $(document).ready(function(){
             <tr>
                 <td>E-mail</td>
                 <td><input type="text" name="email"></td>
-                <td><span id="warning_email" class="register_warning_hidden"></span></td>
             </tr>
             <tr>
                 <td>Password</td>
                 <td><input type="password" name="password" id="idFldLoginPassword"></td>
-                <td><span id="warning_password" class="register_warning_hidden"></span></td>
             </tr>
             <tr>
                 <td>Remember me</td>
                 <td><input type="checkbox" name="remember" /></td>
-                <td></td>
             </tr>
             <tr>
                 <td></td>
                 <td><input class="formSubmit" id="submitFormLogin" type="submit" value="Login"></td>
-                <td></td>
             </tr>
         </table>
     </form>
