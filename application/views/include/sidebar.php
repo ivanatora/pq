@@ -8,6 +8,16 @@
                 <li><a href="/gallery/search">Search</a></li>
                 <li><a href="/contact">Contact Us</a></li>
             </ul>
+            
+            <h2>Stats</h2>
+            <div class="box">
+                <p>
+                    Submissions: <?=$aStats['num_submissions']?><br />
+                    Quests: <?=$aStats['num_quests']?><br />
+                    Comments: <?=$aStats['num_comments']?><br />
+                    Knights: <?=$aStats['num_users']?><br />
+                </p>
+            </div>
 
             <!--
             <h2>Integer rhoncus</h2>

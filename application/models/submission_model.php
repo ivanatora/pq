@@ -173,4 +173,18 @@ class Submission_model extends CI_Model {
         }
         */
     }
+    
+    public function getCount(){
+        $this->db->select("COUNT(*) as cnt");
+        $oRow = $this->db->get($this->table)->first_row();
+        
+        return $oRow->cnt;
+    }
+    
+    public function getCountComments(){
+        $this->db->select("COUNT(*) as cnt");
+        $oRow = $this->db->get('comments')->first_row();
+        
+        return $oRow->cnt;
+    }
 }

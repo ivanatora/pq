@@ -7,6 +7,10 @@ class MY_Controller extends CI_Controller {
         
         $this->load->helper('cookie');
         
+        $this->load->model('submission_model');
+        $this->load->model('quest_model');
+        $this->load->model('member_model');
+        
         $this->data = array();
         $this->data['iMemberId'] = 0;
         $this->member_id = 0;
@@ -37,6 +41,14 @@ class MY_Controller extends CI_Controller {
             }
         }
         
+        // Stats
+        $aStats = array();
+        $aStats['num_submissions'] = $this->submission_model->getCount();
+        $aStats['num_comments'] = $this->submission_model->getCountComments();
+        $aStats['num_quests'] = $this->quest_model->getCount();
+        $aStats['num_users'] = $this->member_model->getCount();
+        $this->data['aStats'] = $aStats;
+        //\Stats
         
         // header stuff
         $this->load->model('quest_model');

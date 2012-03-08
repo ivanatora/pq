@@ -125,4 +125,11 @@ class Member_model extends CI_Model {
         
         return $this->db->get()->result();
     }
+    
+    public function getCount(){
+        $this->db->select("COUNT(*) as cnt");
+        $oRow = $this->db->get($this->table)->first_row();
+        
+        return $oRow->cnt;
+    }
 }

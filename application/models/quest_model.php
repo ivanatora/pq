@@ -85,4 +85,11 @@ class Quest_model extends CI_Model {
         $this->db->insert('quests_possible_topics', $aData);
     }
     
+    public function getCount(){
+        $this->db->select("COUNT(*) as cnt");
+        $oRow = $this->db->get($this->table)->first_row();
+        
+        return $oRow->cnt;
+    }
+    
 }
