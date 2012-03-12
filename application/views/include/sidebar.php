@@ -15,7 +15,7 @@
                     Submissions: <?=$aStats['num_submissions']?><br />
                     Quests: <?=$aStats['num_quests']?><br />
                     Comments: <?=$aStats['num_comments']?><br />
-                    Knights: <?=$aStats['num_users']?><br />
+                    Participants: <?=$aStats['num_users']?><br />
                 </p>
             </div>
 

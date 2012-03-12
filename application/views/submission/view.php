@@ -4,6 +4,37 @@ $(document).ready(function(){
             $('.warning_message').html('<?=$error;?>');
             $('.warning_message').fadeIn();
     <? endif; ?>
+        
+    $('#delete_photo').click(function(){
+        $( "#dialog-delete" ).dialog({
+			resizable: false,
+			height:220,
+            width: 350,
+			modal: true,
+			buttons: {
+				"Delete": function() {
+                    $.ajax({
+                        url: '/submission/delete',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            id: <?=$oPhoto->p_id?>
+                        },
+                        success: function(res){
+                            if (res.success){
+                                window.location = 'http://' + location.hostname;
+                            }
+                        }
+                    })
+				},
+				Cancel: function() {
+					$( this ).dialog( "close" );
+				}
+			}
+		});
+
+    })
+    
 })
 </script>
 
@@ -65,3 +96,12 @@ $(document).ready(function(){
     
     </div> <!-- .post -->
 </div> <!-- #content -->
+
+
+<div id="dialog-delete" title="Delete?" style="display:none;">
+	<p>
+        <span class="delete_icon" style="float:left; margin:0 7px 20px 0;">
+        </span>
+        This photo will be permanently deleted and cannot be recovered. Are you sure?
+    </p>
+</div>

@@ -142,28 +142,14 @@ $(document).ready(function(){
     })
     
     
-    $("#delete_photo").click(function(e){
-        e.preventDefault();
-        if(confirm("Photo will be deleted forever?")){
-            $.ajax({
-                url: '/submission/delete',
-                type: 'POST',
-                dataType: 'json',
-                data: {
-                    id          : $(this).attr('photo_id')
-                },
-                success: function(res){
-                    if (res.success){
-                        window.location = 'http://' + location.hostname;
-                    }
-                }
-            })
-        }
-    })
     
     $("#showInactive").click(function(e){
         e.preventDefault();
         $(".inactive").toggle();
+    })
+    
+    $('.ui-widget-overlay').live('click', function(e){
+        $('#dialog-delete').dialog('close');
     })
 })
 
