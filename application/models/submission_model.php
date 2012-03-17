@@ -136,8 +136,13 @@ class Submission_model extends CI_Model {
     
     public function updateExif($id, $aExif){
         // get real shutter
-        $aParts = explode("/", $aExif['shutter']);
-        $sRealShutter = $aParts[0] / $aParts[1];
+        if (strstr($aExif['shutter'], '/')){
+            $aParts = explode("/", $aExif['shutter']);
+            $sRealShutter = $aParts[0] / $aParts[1];
+        }
+        else {
+            $sRealShutter = $aExif['shutter'];
+        }
 
         $aData = array(
             'p_exif_camera' => $aExif['camera'],
