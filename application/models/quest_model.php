@@ -70,6 +70,7 @@ class Quest_model extends CI_Model {
         $this->db->join("quests_possible_topics qpt", 'q.qpt_id = qpt.qpt_id');
         $this->db->join("photos p", 'p.q_id = q.q_id', 'left');
         $this->db->where('q.q_date < ', $sDate);
+        $this->db->where('p_active', 'Y');
         $this->db->group_by('qpt_id');
         $this->db->order_by('q.q_date DESC');
         
