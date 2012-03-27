@@ -1,4 +1,8 @@
 - after forced login, return to the previous page
+- if logged in by "Remember me", he can't upload (http error)
+- warning if no exif can be found on the photo
+- EXIF stats - aperture/shutter distribution
+- comments textarea style
 
 
 ------------------ DONE ------------------ 
@@ -9,3 +13,4 @@
 - http://pq.ivanatora.info/submission/view/Christmas/20 - center picture - 2012-03-07
 - login form - add 'remember me' checkbox - 2012-03-07
 - delete photo - jquery popup - 2012-03-12
+- social buttons - 2012-03-27

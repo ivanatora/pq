@@ -99,13 +99,15 @@ class Submission extends MY_Controller {
     }
     
     public function ajax_add_rating() {
-        $this->secure();
+        //$this->secure();
         
         if (! $this->input->post()){
+            echo json_encode(array('success' => false, 'msg' => 'Post error'));
             return;
         }
         
         if ($this->member_id == 0){
+            echo json_encode(array('success' => false, 'msg' => 'Login first'));
             return;
         }
         
@@ -116,6 +118,7 @@ class Submission extends MY_Controller {
         $oSubmission = $this->submission_model->get($id);
         if ($oSubmission->u_id == $this->member_id){
             lm("The same user");
+            echo json_encode(array('success' => false, 'msg' => "Can't vote for your own photo"));
             return;
         }
         
@@ -123,6 +126,7 @@ class Submission extends MY_Controller {
         foreach ($aRatings as $oRating){
             if ($oRating->u_id == $this->member_id) {
                 lm("User already voted");
+                echo json_encode(array('success' => false, 'msg' => 'You have already voted for this'));
                 return;
             }
         }

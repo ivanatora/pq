@@ -82,7 +82,23 @@
     width: 300px;
 }
 
+.rating_bar {
+    width: 300px;
+    float: left;
+}
+
+.social_bar {
+    width: 300px;
+    height: 51px;
+    float: left;
+    padding-top: 10px;
+}
+
 #thanksForVoting {
+    display: none;
+}
+
+#votingError {
     display: none;
 }
 

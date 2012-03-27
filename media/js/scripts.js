@@ -1,9 +1,10 @@
 $(document).ready(function(){
     
     var bVotingThisPictureDisabled = false;
+    /*
     if ($("#original_poster").val() == iUserId){
         bVotingThisPictureDisabled = true;
-    }
+    }*/
     
     $(".star_rating").hover(function(){
         if (bVotingThisPictureDisabled){
@@ -54,6 +55,12 @@ $(document).ready(function(){
             success: function(res){
                 if (res.success){
                     $("#thanksForVoting").fadeIn("slow");
+                }
+                else {
+                    if (typeof res.msg != 'undefined'){
+                        $('#votingError').html(res.msg);
+                        $('#votingError').fadeIn('slow');
+                    }
                 }
             }
         })

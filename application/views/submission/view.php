@@ -21,7 +21,7 @@ $(document).ready(function(){
                             id: <?=$oPhoto->p_id?>
                         },
                         success: function(res){
-                            if (res.success){
+                            if (typeof res.success != 'undefined' && res.success){
                                 window.location = 'http://' + location.hostname;
                             }
                         }
@@ -73,12 +73,29 @@ $(document).ready(function(){
         <?if ($oPhoto->p_exif_focal != 0): ?>Focal length: <?=$oPhoto->p_exif_focal;?>mm<?endif;?>
     </div>
     
-    <img class="star_rating" id="star_1" src='/media/images/star_<? if ($oPhoto->r_rating_average < 0.5):?>empty<? elseif ($oPhoto->r_rating_average < 1):?>half<? else:?>full<? endif;?>.png' />
-    <img class="star_rating" id="star_2" src='/media/images/star_<? if ($oPhoto->r_rating_average < 1.5):?>empty<? elseif ($oPhoto->r_rating_average < 2):?>half<? else:?>full<? endif;?>.png' />
-    <img class="star_rating" id="star_3" src='/media/images/star_<? if ($oPhoto->r_rating_average < 2.5):?>empty<? elseif ($oPhoto->r_rating_average < 3):?>half<? else:?>full<? endif;?>.png' />
-    <img class="star_rating" id="star_4" src='/media/images/star_<? if ($oPhoto->r_rating_average < 3.5):?>empty<? elseif ($oPhoto->r_rating_average < 4):?>half<? else:?>full<? endif;?>.png' />
-    <img class="star_rating" id="star_5" src='/media/images/star_<? if ($oPhoto->r_rating_average < 4.5):?>empty<? elseif ($oPhoto->r_rating_average < 5):?>half<? else:?>full<? endif;?>.png' />
-    <div id="thanksForVoting">Thanks for voting!</div>
+    <div class="rating_bar">
+        <img class="star_rating" id="star_1" src='/media/images/star_<? if ($oPhoto->r_rating_average < 0.5):?>empty<? elseif ($oPhoto->r_rating_average < 1):?>half<? else:?>full<? endif;?>.png' />
+        <img class="star_rating" id="star_2" src='/media/images/star_<? if ($oPhoto->r_rating_average < 1.5):?>empty<? elseif ($oPhoto->r_rating_average < 2):?>half<? else:?>full<? endif;?>.png' />
+        <img class="star_rating" id="star_3" src='/media/images/star_<? if ($oPhoto->r_rating_average < 2.5):?>empty<? elseif ($oPhoto->r_rating_average < 3):?>half<? else:?>full<? endif;?>.png' />
+        <img class="star_rating" id="star_4" src='/media/images/star_<? if ($oPhoto->r_rating_average < 3.5):?>empty<? elseif ($oPhoto->r_rating_average < 4):?>half<? else:?>full<? endif;?>.png' />
+        <img class="star_rating" id="star_5" src='/media/images/star_<? if ($oPhoto->r_rating_average < 4.5):?>empty<? elseif ($oPhoto->r_rating_average < 5):?>half<? else:?>full<? endif;?>.png' />
+        <div id="thanksForVoting">Thanks for voting!</div>
+        <div id="votingError"></div>
+    </div>
+    
+    <div class="social_bar">
+        <!-- AddThis Button BEGIN -->
+        <div class="addthis_toolbox addthis_default_style addthis_32x32_style">
+        <a class="addthis_button_preferred_1"></a>
+        <a class="addthis_button_preferred_2"></a>
+        <a class="addthis_button_preferred_3"></a>
+        <a class="addthis_button_preferred_4"></a>
+        <a class="addthis_button_compact"></a>
+        <a class="addthis_counter addthis_bubble_style"></a>
+        </div>
+        <script type="text/javascript" src="http://s7.addthis.com/js/250/addthis_widget.js#pubid=ra-4f71e02f46b89542"></script>
+        <!-- AddThis Button END -->
+    </div>
     
     <br />
     <? if (isset($iMemberId)):?>
